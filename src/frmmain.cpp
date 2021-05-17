@@ -3848,7 +3848,7 @@ bool frmMain::compareCoordinates(double x, double y, double z)
     return ui->txtMPosX->text().toDouble() == x && ui->txtMPosY->text().toDouble() == y && ui->txtMPosZ->text().toDouble() == z;
 }
 
-void frmMain::onCmdUserClicked(bool checked)
+void frmMain::onCmdUserClicked(bool)
 {
     int i = sender()->objectName().right(1).toInt();
 
@@ -3859,7 +3859,7 @@ void frmMain::onCmdUserClicked(bool checked)
     }
 }
 
-void frmMain::onOverridingToggled(bool checked)
+void frmMain::onOverridingToggled(bool)
 {
     ui->grpOverriding->setProperty("overrided", ui->slbFeedOverride->isChecked()
                                    || ui->slbRapidOverride->isChecked() || ui->slbSpindleOverride->isChecked());
