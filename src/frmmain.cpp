@@ -884,6 +884,7 @@ void frmMain::onSerialPortReadyRead()
                 ui->cmdSafePosition->setEnabled(status == IDLE);
                 ui->cmdZeroXY->setEnabled(status == IDLE);
                 ui->cmdZeroZ->setEnabled(status == IDLE);
+		ui->cmdOutline->setEnabled(status == IDLE);
                 ui->chkTestMode->setEnabled(status != RUN && !m_processingFile);
                 ui->chkTestMode->setChecked(status == CHECK);
                 ui->cmdFilePause->setChecked(status == HOLD0 || status == HOLD1 || status == QUEUE);
@@ -2378,6 +2379,18 @@ void frmMain::on_cmdTouch_clicked()
     foreach (QString cmd, list) {
         sendCommand(cmd.trimmed(), -1, m_settings->showUICommands());
     }
+}
+
+void frmMain::on_cmdOutline_clicked()
+{
+    QVector3D min = m_codeDrawer->getMinimumExtremes();
+    QVector3D max = m_codeDrawer->getMaximumExtremes();
+    
+    sendCommand(QString("G0 X%1 Y%2").arg(toMetric(min.x())).arg(toMetric(min.y())), -1, m_settings->showUICommands());
+    sendCommand(QString("G0 X%1 Y%2").arg(toMetric(max.x())).arg(toMetric(min.y())), -1, m_settings->showUICommands());
+    sendCommand(QString("G0 X%1 Y%2").arg(toMetric(max.x())).arg(toMetric(max.y())), -1, m_settings->showUICommands());
+    sendCommand(QString("G0 X%1 Y%2").arg(toMetric(min.x())).arg(toMetric(max.y())), -1, m_settings->showUICommands());
+    sendCommand(QString("G0 X%1 Y%2").arg(toMetric(min.x())).arg(toMetric(min.y())), -1, m_settings->showUICommands());
 }
 
 void frmMain::on_cmdZeroXY_clicked()
