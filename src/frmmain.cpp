@@ -1650,7 +1650,7 @@ void frmMain::resetHeightmap()
 
 void frmMain::loadFile(QList<QString> data)
 {
-    QTime time;
+    QElapsedTimer time;
     time.start();
 
     // Reset tables
@@ -2283,7 +2283,7 @@ void frmMain::applySettings() {
 
 void frmMain::updateParser()
 {
-    QTime time;
+    QElapsedTimer time;
 
     qDebug() << "updating parser:" << m_currentModel << m_currentDrawer;
     time.start();
@@ -2497,7 +2497,7 @@ void frmMain::on_cmdFileReset_clicked()
     m_probeIndex = -1;
 
     if (!m_heightMapMode) {
-        QTime time;
+        QElapsedTimer time;
 
         time.start();
 
@@ -3539,7 +3539,7 @@ void frmMain::on_chkHeightMapUse_clicked(bool checked)
         progress.setStyleSheet("QProgressBar {text-align: center; qproperty-format: \"\"}");
 
         // Performance test
-        QTime time;
+        QElapsedTimer time;
 
         // Store fileChanged state
 //        fileChanged = m_fileChanged;
