@@ -38,6 +38,8 @@ bool GcodeDrawer::updateData()
         if (m_indexes.isEmpty()) return prepareVectors(); else return updateVectors();
     case GcodeDrawer::Raster:
         if (m_indexes.isEmpty()) return prepareRaster(); else return updateRaster();
+    default:
+        return false;
     }
 }
 
