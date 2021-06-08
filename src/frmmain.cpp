@@ -140,7 +140,7 @@ frmMain::frmMain(QWidget *parent) :
 
     connect(ui->cboCommand, SIGNAL(returnPressed()), this, SLOT(onCboCommandReturnPressed()));
 
-    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegExp("cmdUser\\d"))) {
+    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegularExpression("cmdUser\\d"))) {
         connect(button, SIGNAL(clicked(bool)), this, SLOT(onCmdUserClicked(bool)));
     }
 
@@ -239,7 +239,7 @@ frmMain::frmMain(QWidget *parent) :
     updateControlsState();
 
     // Prepare jog buttons
-    foreach (StyledToolButton* button, ui->grpJog->findChildren<StyledToolButton*>(QRegExp("cmdJogFeed\\d")))
+    foreach (StyledToolButton* button, ui->grpJog->findChildren<StyledToolButton*>(QRegularExpression("cmdJogFeed\\d")))
     {
         connect(button, SIGNAL(clicked(bool)), this, SLOT(onCmdJogFeedClicked()));
     }
@@ -427,7 +427,7 @@ void frmMain::loadSettings()
     m_settings->setTouchCommand(set.value("touchCommand").toString());
     m_settings->setSafePositionCommand(set.value("safePositionCommand").toString());
 
-    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegExp("cmdUser\\d"))) {
+    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegularExpression("cmdUser\\d"))) {
         int i = button->objectName().right(1).toInt();
         m_settings->setUserCommands(i, set.value(QString("userCommands%1").arg(i)).toString());
     }
@@ -558,7 +558,7 @@ void frmMain::saveSettings()
     set.setValue("spindleOverride", ui->slbSpindleOverride->isChecked());
     set.setValue("spindleOverrideValue", ui->slbSpindleOverride->value());
 
-    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegExp("cmdUser\\d"))) {
+    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegularExpression("cmdUser\\d"))) {
         int i = button->objectName().right(1).toInt();
         set.setValue(QString("userCommands%1").arg(i), m_settings->userCommands(i));
     }
@@ -2275,7 +2275,7 @@ void frmMain::applySettings() {
     ui->cmdClearConsole->setFixedHeight(ui->cboCommand->height());
     ui->cmdCommandSend->setFixedHeight(ui->cboCommand->height());
 
-    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegExp("cmdUser\\d"))) {
+    foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegularExpression("cmdUser\\d"))) {
         button->setToolTip(m_settings->userCommands(button->objectName().right(1).toInt()));
         button->setEnabled(!button->toolTip().isEmpty());
     }
