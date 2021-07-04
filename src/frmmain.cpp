@@ -617,7 +617,7 @@ void frmMain::updateControlsState() {
     bool portOpened = m_serialPort.isOpen();
 
     ui->grpState->setEnabled(portOpened);
-    ui->grpControl->setEnabled(portOpened);
+    ui->menuControl->setEnabled(portOpened);
     ui->widgetUserCommands->setEnabled(portOpened && !m_processingFile);
     ui->widgetSpindle->setEnabled(portOpened);
     ui->widgetJog->setEnabled(portOpened && !m_processingFile);
@@ -627,12 +627,13 @@ void frmMain::updateControlsState() {
 //    ui->widgetFeed->setEnabled(!m_transferringFile);
 
     ui->chkTestMode->setEnabled(portOpened && !m_processingFile);
-    ui->cmdHome->setEnabled(!m_processingFile);
-    ui->cmdTouch->setEnabled(!m_processingFile);
-    ui->cmdZeroXY->setEnabled(!m_processingFile);
-    ui->cmdZeroZ->setEnabled(!m_processingFile);
-    ui->cmdSafePosition->setEnabled(!m_processingFile);
-    ui->cmdUnlock->setEnabled(!m_processingFile);
+    ui->actionHome->setEnabled(!m_processingFile);
+    ui->actionTouch->setEnabled(!m_processingFile);
+    ui->actionZeroXY->setEnabled(!m_processingFile);
+    ui->actionZeroZ->setEnabled(!m_processingFile);
+    ui->actionSafePosition->setEnabled(!m_processingFile);
+    ui->actionUnlock->setEnabled(!m_processingFile);
+    ui->actionOutline->setEnabled(!m_processingFile);
     ui->cmdSpindle->setEnabled(!m_processingFile);
 
     ui->actFileNew->setEnabled(!m_processingFile);
@@ -871,10 +872,10 @@ void frmMain::onSerialPortReadyRead()
                 }
 
                 // Update controls
-                ui->cmdSafePosition->setEnabled(status == IDLE);
-                ui->cmdZeroXY->setEnabled(status == IDLE);
-                ui->cmdZeroZ->setEnabled(status == IDLE);
-		ui->cmdOutline->setEnabled(status == IDLE);
+                ui->actionSafePosition->setEnabled(status == IDLE);
+                ui->actionZeroXY->setEnabled(status == IDLE);
+                ui->actionZeroZ->setEnabled(status == IDLE);
+		ui->actionOutline->setEnabled(status == IDLE);
                 ui->chkTestMode->setEnabled(status != RUN && !m_processingFile);
                 ui->chkTestMode->setChecked(status == CHECK);
                 ui->cmdFilePause->setChecked(status == HOLD0 || status == HOLD1 || status == QUEUE);
@@ -2340,14 +2341,14 @@ void frmMain::on_actFileOpen_triggered()
     on_cmdFileOpen_clicked();
 }
 
-void frmMain::on_cmdHome_clicked()
+void frmMain::on_actionHome_triggered()
 {
     m_homing = true;
     m_updateSpindleSpeed = true;
     sendCommand("$H", -1, m_settings->showUICommands());
 }
 
-void frmMain::on_cmdTouch_clicked()
+void frmMain::on_actionTouch_triggered()
 {
 //    m_homing = true;
 
@@ -2358,7 +2359,7 @@ void frmMain::on_cmdTouch_clicked()
     }
 }
 
-void frmMain::on_cmdOutline_clicked()
+void frmMain::on_actionOutline_triggered()
 {
     QVector3D min = m_codeDrawer->getMinimumExtremes();
     QVector3D max = m_codeDrawer->getMaximumExtremes();
@@ -2370,32 +2371,32 @@ void frmMain::on_cmdOutline_clicked()
     sendCommand(QString("G0 X%1 Y%2").arg(toMetric(min.x())).arg(toMetric(min.y())), -1, m_settings->showUICommands());
 }
 
-void frmMain::on_cmdZeroXY_clicked()
+void frmMain::on_actionZeroXY_triggered()
 {
     m_settingZeroXY = true;
     sendCommand("G10 L20 X0Y0", -1, m_settings->showUICommands());
     sendCommand("$#", -2, m_settings->showUICommands());
 }
 
-void frmMain::on_cmdZeroZ_clicked()
+void frmMain::on_actionZeroZ_triggered()
 {
     m_settingZeroZ = true;
     sendCommand("G10 L20 Z0", -1, m_settings->showUICommands());
     sendCommand("$#", -2, m_settings->showUICommands());
 }
 
-void frmMain::on_cmdReset_clicked()
+void frmMain::on_actionReset_triggered()
 {
     grblReset();
 }
 
-void frmMain::on_cmdUnlock_clicked()
+void frmMain::on_actionUnlock_triggered()
 {
     m_updateSpindleSpeed = true;
     sendCommand("$X", -1, m_settings->showUICommands());
 }
 
-void frmMain::on_cmdSafePosition_clicked()
+void frmMain::on_actionSafePosition_triggered()
 {
     QStringList list = m_settings->safePositionCommand().split(";");
 
