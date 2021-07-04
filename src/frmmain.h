@@ -121,7 +121,6 @@ private slots:
     void on_cmdTouch_clicked();
     void on_cmdZeroXY_clicked();
     void on_cmdZeroZ_clicked();
-    void on_cmdRestoreOrigin_clicked();
     void on_cmdReset_clicked();
     void on_cmdUnlock_clicked();
     void on_cmdSafePosition_clicked();
@@ -371,7 +370,6 @@ private:
     void storeParserState();
     void restoreParserState();
     void storeOffsets();
-    void restoreOffsets();
     bool isGCodeFile(QString fileName);
     bool isHeightmapFile(QString fileName);
     bool compareCoordinates(double x, double y, double z);

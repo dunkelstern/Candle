@@ -350,8 +350,6 @@ void frmMain::loadSettings()
     m_settings->setGrayscaleSegments(set.value("grayscaleSegments", false).toBool());
     m_settings->setGrayscaleSCode(set.value("grayscaleSCode", true).toBool());
     m_settings->setDrawModeVectors(set.value("drawModeVectors", true).toBool());    
-    m_settings->setMoveOnRestore(set.value("moveOnRestore", false).toBool());
-    m_settings->setRestoreMode(set.value("restoreMode", 0).toInt());
     m_settings->setLineWidth(set.value("lineWidth", 1).toDouble());
     m_settings->setArcLength(set.value("arcLength", 0).toDouble());
     m_settings->setArcDegree(set.value("arcDegree", 0).toDouble());
@@ -395,11 +393,6 @@ void frmMain::loadSettings()
     ui->slbSpindleOverride->setValue(set.value("spindleOverrideValue", 100).toInt());
 
     m_settings->setUnits(set.value("units", 0).toInt());
-    m_storedX = set.value("storedX", 0).toDouble();
-    m_storedY = set.value("storedY", 0).toDouble();
-    m_storedZ = set.value("storedZ", 0).toDouble();
-
-    ui->cmdRestoreOrigin->setToolTip(QString(tr("Restore origin:\n%1, %2, %3")).arg(m_storedX).arg(m_storedY).arg(m_storedZ));
 
     m_recentFiles = set.value("recentFiles", QStringList()).toStringList();
     m_recentHeightmaps = set.value("recentHeightmaps", QStringList()).toStringList();
@@ -513,8 +506,6 @@ void frmMain::saveSettings()
     set.setValue("spindleSpeedMax", m_settings->spindleSpeedMax());
     set.setValue("laserPowerMin", m_settings->laserPowerMin());
     set.setValue("laserPowerMax", m_settings->laserPowerMax());
-    set.setValue("moveOnRestore", m_settings->moveOnRestore());
-    set.setValue("restoreMode", m_settings->restoreMode());
     set.setValue("rapidSpeed", m_settings->rapidSpeed());
     set.setValue("heightmapProbingFeed", m_settings->heightmapProbingFeed());
     set.setValue("acceleration", m_settings->acceleration());
@@ -640,7 +631,6 @@ void frmMain::updateControlsState() {
     ui->cmdTouch->setEnabled(!m_processingFile);
     ui->cmdZeroXY->setEnabled(!m_processingFile);
     ui->cmdZeroZ->setEnabled(!m_processingFile);
-    ui->cmdRestoreOrigin->setEnabled(!m_processingFile);
     ui->cmdSafePosition->setEnabled(!m_processingFile);
     ui->cmdUnlock->setEnabled(!m_processingFile);
     ui->cmdSpindle->setEnabled(!m_processingFile);
@@ -881,7 +871,6 @@ void frmMain::onSerialPortReadyRead()
                 }
 
                 // Update controls
-                ui->cmdRestoreOrigin->setEnabled(status == IDLE);
                 ui->cmdSafePosition->setEnabled(status == IDLE);
                 ui->cmdZeroXY->setEnabled(status == IDLE);
                 ui->cmdZeroZ->setEnabled(status == IDLE);
@@ -950,7 +939,6 @@ void frmMain::onSerialPortReadyRead()
                     case IDLE: // Idle
                         if (!m_processingFile && m_resetCompleted) {
                             m_aborting = false;
-                            restoreOffsets();
                             restoreParserState();
                             return;
                         }
@@ -1150,7 +1138,6 @@ void frmMain::onSerialPortReadyRead()
                                 m_settingZeroZ = false;
                                 m_storedZ = toMetric(rx.cap(3).toDouble());
                             }
-                            ui->cmdRestoreOrigin->setToolTip(QString(tr("Restore origin:\n%1, %2, %3")).arg(m_storedX).arg(m_storedY).arg(m_storedZ));
                         }
                     }
 
@@ -2007,17 +1994,6 @@ void frmMain::storeOffsets()
 //    sendCommand("$#", -2, m_settings->showUICommands());
 }
 
-void frmMain::restoreOffsets()
-{
-    // Still have pre-reset working position
-    sendCommand(QString("G21G53G90X%1Y%2Z%3").arg(toMetric(ui->txtMPosX->text().toDouble()))
-                                       .arg(toMetric(ui->txtMPosY->text().toDouble()))
-                                       .arg(toMetric(ui->txtMPosZ->text().toDouble())), -1, m_settings->showUICommands());
-    sendCommand(QString("G21G92X%1Y%2Z%3").arg(toMetric(ui->txtWPosX->text().toDouble()))
-                                       .arg(toMetric(ui->txtWPosY->text().toDouble()))
-                                       .arg(toMetric(ui->txtWPosZ->text().toDouble())), -1, m_settings->showUICommands());
-}
-
 void frmMain::sendNextFileCommands() {
     if (m_queue.length() > 0) return;
 
@@ -2397,37 +2373,15 @@ void frmMain::on_cmdOutline_clicked()
 void frmMain::on_cmdZeroXY_clicked()
 {
     m_settingZeroXY = true;
-    sendCommand("G92X0Y0", -1, m_settings->showUICommands());
+    sendCommand("G10 L20 X0Y0", -1, m_settings->showUICommands());
     sendCommand("$#", -2, m_settings->showUICommands());
 }
 
 void frmMain::on_cmdZeroZ_clicked()
 {
     m_settingZeroZ = true;
-    sendCommand("G92Z0", -1, m_settings->showUICommands());
+    sendCommand("G10 L20 Z0", -1, m_settings->showUICommands());
     sendCommand("$#", -2, m_settings->showUICommands());
-}
-
-void frmMain::on_cmdRestoreOrigin_clicked()
-{
-    // Restore offset
-    sendCommand(QString("G21"), -1, m_settings->showUICommands());
-    sendCommand(QString("G53G90G0X%1Y%2Z%3").arg(toMetric(ui->txtMPosX->text().toDouble()))
-                                            .arg(toMetric(ui->txtMPosY->text().toDouble()))
-                                            .arg(toMetric(ui->txtMPosZ->text().toDouble())), -1, m_settings->showUICommands());
-    sendCommand(QString("G92X%1Y%2Z%3").arg(toMetric(ui->txtMPosX->text().toDouble()) - m_storedX)
-                                        .arg(toMetric(ui->txtMPosY->text().toDouble()) - m_storedY)
-                                        .arg(toMetric(ui->txtMPosZ->text().toDouble()) - m_storedZ), -1, m_settings->showUICommands());
-
-    // Move tool
-    if (m_settings->moveOnRestore()) switch (m_settings->restoreMode()) {
-    case 0:
-        sendCommand("G0X0Y0", -1, m_settings->showUICommands());
-        break;
-    case 1:
-        sendCommand("G0X0Y0Z0", -1, m_settings->showUICommands());
-        break;
-    }
 }
 
 void frmMain::on_cmdReset_clicked()
