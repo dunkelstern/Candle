@@ -83,7 +83,7 @@ class frmMain : public QMainWindow
 public:
     explicit frmMain(QWidget *parent = 0);
     ~frmMain();
-
+/*
     double toolZPosition();
 
 private slots:
@@ -100,12 +100,12 @@ private slots:
     void onTableInsertLine();
     void onTableDeleteLines();
     void onActRecentFileTriggered();
-    void onCboCommandReturnPressed();
+//    void onCboCommandReturnPressed();
     void onTableCurrentChanged(QModelIndex idx1, QModelIndex idx2);
     void onConsoleResized(QSize size);
     void onPanelsSizeChanged(QSize size);
     void onCmdUserClicked(bool checked);
-    void onOverridingToggled(bool checked);
+    // FIXME void onOverridingToggled(bool checked);
     void onActSendFromLineTriggered();
 
     void on_actFileExit_triggered();
@@ -138,15 +138,15 @@ private slots:
     void on_cmdLeft_clicked();
     void on_cmdIsometric_clicked();
     void on_actAbout_triggered();
-    void on_grpOverriding_toggled(bool checked);
-    void on_grpSpindle_toggled(bool checked);
-    void on_grpJog_toggled(bool checked);
-    void on_grpUserCommands_toggled(bool checked);
-    void on_chkKeyboardControl_toggled(bool checked);
+// FIXME    void on_grpOverriding_toggled(bool checked);
+// FIXME    void on_grpSpindle_toggled(bool checked);
+// FIXME    void on_grpJog_toggled(bool checked);
+// FIXME    void on_grpUserCommands_toggled(bool checked);
+// FIXME    void on_chkKeyboardControl_toggled(bool checked);
     void on_tblProgram_customContextMenuRequested(const QPoint &pos);
     void on_splitter_splitterMoved(int pos, int index);
     void on_actRecentClear_triggered();
-    void on_grpHeightMap_toggled(bool arg1);
+// FIXME    void on_grpHeightMap_toggled(bool arg1);
     void on_chkHeightMapBorderShow_toggled(bool checked);
     void on_txtHeightMapBorderX_valueChanged(double arg1);
     void on_txtHeightMapBorderWidth_valueChanged(double arg1);
@@ -202,7 +202,7 @@ protected:
     void closeEvent(QCloseEvent *ce);
     void dragEnterEvent(QDragEnterEvent *dee);
     void dropEvent(QDropEvent *de);
-
+*/
 private:
     const int BUFFERLENGTH = 127;
 
@@ -322,7 +322,7 @@ private:
 
     QStringList m_recentFiles;
     QStringList m_recentHeightmaps;
-
+/*
     void loadFile(QString fileName);
     void loadFile(QList<QString> data);
     void clearTable();
@@ -345,8 +345,9 @@ private:
     QTime updateProgramEstimatedTime(QList<LineSegment *> lines);
     bool saveProgramToFile(QString fileName, GCodeTableModel *model);
     QString feedOverride(QString command);
-
+*/
     bool eventFilter(QObject *obj, QEvent *event);
+/*
     bool keyIsMovement(int key);
     void resizeCheckBoxes();
     void updateLayouts();
@@ -361,8 +362,9 @@ private:
     bool updateHeightMapGrid();
     void loadHeightMap(QString fileName);
     bool saveHeightMap(QString fileName);
-
+*/
     GCodeTableModel *m_currentModel;
+/*
     QList<LineSegment *> subdivideSegment(LineSegment *segment);
     void resizeTableHeightMapSections();
     void updateHeightMapGrid(double arg1);
@@ -376,7 +378,9 @@ private:
     int getConsoleMinHeight();
     void updateOverride(SliderBox *slider, int value, char command);
     void jogStep();
+*/
     void updateJogTitle();
+
 };
 
 #endif // FRMMAIN_H

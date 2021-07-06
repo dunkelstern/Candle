@@ -86,7 +86,7 @@ frmMain::frmMain(QWidget *parent) :
 
     // Loading settings
     m_settingsFileName = qApp->applicationDirPath() + "/settings.ini";
-    preloadSettings();
+    // FIXME preloadSettings();
 
     m_settings = new frmSettings(this);
     ui->setupUi(this);
@@ -99,7 +99,7 @@ frmMain::frmMain(QWidget *parent) :
 #endif
 
 #ifndef UNIX
-    ui->cboCommand->setStyleSheet("QComboBox {padding: 2;} QComboBox::drop-down {width: 0; border-style: none;} QComboBox::down-arrow {image: url(noimg);	border-width: 0;}");
+    // FIXME ui->cboCommand->setStyleSheet("QComboBox {padding: 2;} QComboBox::drop-down {width: 0; border-style: none;} QComboBox::down-arrow {image: url(noimg);	border-width: 0;}");
 #endif
 //    ui->scrollArea->updateMinimumWidth();
 
@@ -138,27 +138,27 @@ frmMain::frmMain(QWidget *parent) :
     menuSend->addAction(tr("Send from current line"), this, SLOT(onActSendFromLineTriggered()));
     ui->cmdFileSend->setMenu(menuSend);
 
-    connect(ui->cboCommand, SIGNAL(returnPressed()), this, SLOT(onCboCommandReturnPressed()));
+    // FIXME connect(ui->cboCommand, SIGNAL(returnPressed()), this, SLOT(onCboCommandReturnPressed()));
 
     foreach (StyledToolButton* button, this->findChildren<StyledToolButton*>(QRegularExpression("cmdUser\\d"))) {
         connect(button, SIGNAL(clicked(bool)), this, SLOT(onCmdUserClicked(bool)));
     }
 
     // Setting up slider boxes
-    ui->slbFeedOverride->setRatio(1);
-    ui->slbFeedOverride->setMinimum(10);
-    ui->slbFeedOverride->setMaximum(200);
-    ui->slbFeedOverride->setCurrentValue(100);
-    ui->slbFeedOverride->setTitle(tr("Feed rate:"));
-    ui->slbFeedOverride->setSuffix("%");
-    connect(ui->slbFeedOverride, SIGNAL(toggled(bool)), this, SLOT(onOverridingToggled(bool)));
-    connect(ui->slbFeedOverride, &SliderBox::toggled, [=] {
-        updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
-    });
-    connect(ui->slbFeedOverride, &SliderBox::valueChanged, [=] {
-        updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
-    });
-
+// FIXME    ui->slbFeedOverride->setRatio(1);
+// FIXME    ui->slbFeedOverride->setMinimum(10);
+// FIXME    ui->slbFeedOverride->setMaximum(200);
+// FIXME    ui->slbFeedOverride->setCurrentValue(100);
+// FIXME    ui->slbFeedOverride->setTitle(tr("Feed rate:"));
+// FIXME    ui->slbFeedOverride->setSuffix("%");
+// FIXME    connect(ui->slbFeedOverride, SIGNAL(toggled(bool)), this, SLOT(onOverridingToggled(bool)));
+// FIXME    connect(ui->slbFeedOverride, &SliderBox::toggled, [=] {
+// FIXME        updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
+// FIXME    });
+// FIXME    connect(ui->slbFeedOverride, &SliderBox::valueChanged, [=] {
+// FIXME        updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
+// FIXME    });
+// FIXME
     ui->slbRapidOverride->setRatio(50);
     ui->slbRapidOverride->setMinimum(25);
     ui->slbRapidOverride->setMaximum(100);
@@ -166,12 +166,12 @@ frmMain::frmMain(QWidget *parent) :
     ui->slbRapidOverride->setTitle(tr("Rapid speed:"));
     ui->slbRapidOverride->setSuffix("%");
     connect(ui->slbRapidOverride, SIGNAL(toggled(bool)), this, SLOT(onOverridingToggled(bool)));
-    connect(ui->slbRapidOverride, &SliderBox::toggled, [=] {
-        updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
-    });
-    connect(ui->slbRapidOverride, &SliderBox::valueChanged, [=] {
-        updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
-    });
+     // FIXME connect(ui->slbRapidOverride, &SliderBox::toggled, [=] {
+     // FIXME     updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
+     // FIXME });
+     // FIXME connect(ui->slbRapidOverride, &SliderBox::valueChanged, [=] {
+     // FIXME     updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
+     // FIXME });
 
     ui->slbSpindleOverride->setRatio(1);
     ui->slbSpindleOverride->setMinimum(50);
@@ -222,21 +222,21 @@ frmMain::frmMain(QWidget *parent) :
     ui->tblProgram->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
     connect(ui->tblProgram->verticalScrollBar(), SIGNAL(actionTriggered(int)), this, SLOT(onScroolBarAction(int)));
     connect(ui->tblProgram->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(onTableCurrentChanged(QModelIndex,QModelIndex)));    
-    clearTable();
+     // FIXME clearTable();
 
     // Console window handling
-    connect(ui->grpConsole, SIGNAL(resized(QSize)), this, SLOT(onConsoleResized(QSize)));
-    connect(ui->scrollAreaWidgetContents, SIGNAL(sizeChanged(QSize)), this, SLOT(onPanelsSizeChanged(QSize)));
+    // FIXME connect(ui->grpConsole, SIGNAL(resized(QSize)), this, SLOT(onConsoleResized(QSize)));
+    // FIXME connect(ui->scrollAreaWidgetContents, SIGNAL(sizeChanged(QSize)), this, SLOT(onPanelsSizeChanged(QSize)));
 
     m_senderErrorBox = new QMessageBox(QMessageBox::Warning, qApp->applicationDisplayName(), QString(),
                                        QMessageBox::Ignore | QMessageBox::Abort, this);
     m_senderErrorBox->setCheckBox(new QCheckBox(tr("Don't show again")));
 
     // Loading settings
-    loadSettings();
+     // FIXME loadSettings();
     ui->tblProgram->hideColumn(4);
     ui->tblProgram->hideColumn(5);
-    updateControlsState();
+     // FIXME updateControlsState();
 
     // Prepare jog buttons
     foreach (StyledToolButton* button, ui->grpJog->findChildren<StyledToolButton*>(QRegularExpression("cmdJogFeed\\d")))
@@ -244,6 +244,7 @@ frmMain::frmMain(QWidget *parent) :
         connect(button, SIGNAL(clicked(bool)), this, SLOT(onCmdJogFeedClicked()));
     }
 
+    /* FIXME
     // Setting up spindle slider box
     ui->slbSpindle->setTitle(tr("Speed:"));
     ui->slbSpindle->setCheckable(false);
@@ -253,7 +254,7 @@ frmMain::frmMain(QWidget *parent) :
         if (!ui->grpSpindle->isChecked() && ui->cmdSpindle->isChecked())
             ui->grpSpindle->setTitle(tr("Spindle") + QString(tr(" (%1)")).arg(ui->slbSpindle->value()));
     });
-
+    */
     // Setup serial port
     m_serialPort.setParity(QSerialPort::NoParity);
     m_serialPort.setDataBits(QSerialPort::Data8);
@@ -272,8 +273,8 @@ frmMain::frmMain(QWidget *parent) :
     ui->tblProgram->installEventFilter(this);
     ui->cboJogStep->installEventFilter(this);
     ui->cboJogFeed->installEventFilter(this);
-    ui->splitPanels->handle(1)->installEventFilter(this);
-    ui->splitPanels->installEventFilter(this);
+    // FIXME ui->splitPanels->handle(1)->installEventFilter(this);
+    // FIXME ui->splitPanels->installEventFilter(this);
 
     connect(&m_timerConnection, SIGNAL(timeout()), this, SLOT(onTimerConnection()));
     connect(&m_timerStateQuery, SIGNAL(timeout()), this, SLOT(onTimerStateQuery()));
@@ -281,19 +282,19 @@ frmMain::frmMain(QWidget *parent) :
     m_timerStateQuery.start();
 
     // Handle file drop
-    if (qApp->arguments().count() > 1 && isGCodeFile(qApp->arguments().last())) {
-        loadFile(qApp->arguments().last());
-    }
+     // FIXME if (qApp->arguments().count() > 1 && isGCodeFile(qApp->arguments().last())) {
+         // FIXME loadFile(qApp->arguments().last());
+     // FIXME }
 }
 
 frmMain::~frmMain()
 {    
-    saveSettings();
+     // FIXME saveSettings();
 
     delete m_senderErrorBox;
     delete ui;
 }
-
+/*
 bool frmMain::isGCodeFile(QString fileName)
 {
     return fileName.endsWith(".txt", Qt::CaseInsensitive)
@@ -374,7 +375,7 @@ void frmMain::loadSettings()
     m_settings->setPanelOverriding(set.value("panelOverridingVisible", true).toBool());
     m_settings->setPanelJog(set.value("panelJogVisible", true).toBool());
 
-    ui->grpConsole->setMinimumHeight(set.value("consoleMinHeight", 100).toInt());
+    // FIXME ui->grpConsole->setMinimumHeight(set.value("consoleMinHeight", 100).toInt());
 
     ui->chkAutoScroll->setChecked(set.value("autoScroll", false).toBool());
 
@@ -383,14 +384,14 @@ void frmMain::loadSettings()
     ui->slbSpindle->setMaximum(m_settings->spindleSpeedMax());
     ui->slbSpindle->setValue(set.value("spindleSpeed", 100).toInt());
 
-    ui->slbFeedOverride->setChecked(set.value("feedOverride", false).toBool());
-    ui->slbFeedOverride->setValue(set.value("feedOverrideValue", 100).toInt());
-
-    ui->slbRapidOverride->setChecked(set.value("rapidOverride", false).toBool());
-    ui->slbRapidOverride->setValue(set.value("rapidOverrideValue", 100).toInt());
-
-    ui->slbSpindleOverride->setChecked(set.value("spindleOverride", false).toBool());
-    ui->slbSpindleOverride->setValue(set.value("spindleOverrideValue", 100).toInt());
+// FIXME    ui->slbFeedOverride->setChecked(set.value("feedOverride", false).toBool());
+// FIXME    ui->slbFeedOverride->setValue(set.value("feedOverrideValue", 100).toInt());
+// FIXME
+// FIXME    ui->slbRapidOverride->setChecked(set.value("rapidOverride", false).toBool());
+// FIXME    ui->slbRapidOverride->setValue(set.value("rapidOverrideValue", 100).toInt());
+// FIXME
+// FIXME    ui->slbSpindleOverride->setChecked(set.value("spindleOverride", false).toBool());
+// FIXME    ui->slbSpindleOverride->setValue(set.value("spindleOverrideValue", 100).toInt());
 
     m_settings->setUnits(set.value("units", 0).toInt());
 
@@ -425,10 +426,10 @@ void frmMain::loadSettings()
         m_settings->setUserCommands(i, set.value(QString("userCommands%1").arg(i)).toString());
     }
 
-    ui->cboJogStep->setItems(set.value("jogSteps").toStringList());
-    ui->cboJogStep->setCurrentIndex(ui->cboJogStep->findText(set.value("jogStep").toString()));
-    ui->cboJogFeed->setItems(set.value("jogFeeds").toStringList());
-    ui->cboJogFeed->setCurrentIndex(ui->cboJogFeed->findText(set.value("jogFeed").toString()));
+// FIXME    ui->cboJogStep->setItems(set.value("jogSteps").toStringList());
+// FIXME    ui->cboJogStep->setCurrentIndex(ui->cboJogStep->findText(set.value("jogStep").toString()));
+// FIXME    ui->cboJogFeed->setItems(set.value("jogFeeds").toStringList());
+// FIXME    ui->cboJogFeed->setCurrentIndex(ui->cboJogFeed->findText(set.value("jogFeed").toString()));
 
     ui->txtHeightMapBorderX->setValue(set.value("heightmapBorderX", 0).toDouble());
     ui->txtHeightMapBorderY->setValue(set.value("heightmapBorderY", 0).toDouble());
@@ -464,7 +465,7 @@ void frmMain::loadSettings()
     ui->grpUserCommands->setChecked(set.value("userCommandsPanel", true).toBool());
     ui->grpHeightMap->setChecked(set.value("heightmapPanel", true).toBool());
     ui->grpSpindle->setChecked(set.value("spindlePanel", true).toBool());
-    ui->grpOverriding->setChecked(set.value("feedPanel", true).toBool());
+    // FIXME ui->grpOverriding->setChecked(set.value("feedPanel", true).toBool());
     ui->grpJog->setChecked(set.value("jogPanel", true).toBool());
 
     // Restore last commands list
@@ -521,7 +522,7 @@ void frmMain::saveSettings()
     set.setValue("userCommandsPanel", ui->grpUserCommands->isChecked());
     set.setValue("heightmapPanel", ui->grpHeightMap->isChecked());
     set.setValue("spindlePanel", ui->grpSpindle->isChecked());
-    set.setValue("feedPanel", ui->grpOverriding->isChecked());
+    // set.setValue("feedPanel", ui->grpOverriding->isChecked());
     set.setValue("jogPanel", ui->grpJog->isChecked());
     set.setValue("keyboardControl", ui->chkKeyboardControl->isChecked());
     set.setValue("autoCompletion", m_settings->autoCompletion());
@@ -1374,7 +1375,10 @@ void frmMain::onTimerConnection()
 {
     if (!m_serialPort.isOpen()) {
         openPort();
-    } else if (!m_homing/* && !m_reseting*/ && !ui->cmdFilePause->isChecked() && m_queue.length() == 0) {
+
+*/
+//  } else if (!m_homing/* && !m_reseting*/ && !ui->cmdFilePause->isChecked() && m_queue.length() == 0) {
+/*
         if (m_updateSpindleSpeed) {
             m_updateSpindleSpeed = false;
             sendCommand(QString("S%1").arg(ui->slbSpindle->value()), -2, m_settings->showUICommands());
@@ -2023,11 +2027,13 @@ void frmMain::onTableCellChanged(QModelIndex i1, QModelIndex i2)
         model->insertRow(model->rowCount());
         if (!m_programLoading) ui->tblProgram->setCurrentIndex(model->index(i1.row() + 1, 1));
     // Remove last line
-    } /*else if (i1.row() != (model->rowCount() - 1) && model->data(model->index(i1.row(), 1)).toString() == "") {
+    }
+    */
+/*else if (i1.row() != (model->rowCount() - 1) && model->data(model->index(i1.row(), 1)).toString() == "") {
         ui->tblProgram->setCurrentIndex(model->index(i1.row() + 1, 1));
         m_tableModel.removeRow(i1.row());
     }*/
-
+/*
     if (!m_programLoading) {
 
         // Clear cached args
@@ -2745,9 +2751,10 @@ void frmMain::on_grpUserCommands_toggled(bool checked)
 {
     ui->widgetUserCommands->setVisible(checked);
 }
-
+*/
 bool frmMain::eventFilter(QObject *obj, QEvent *event)
 {
+    /*
     // Main form events
     if (obj == this || obj == ui->tblProgram || obj == ui->cboJogStep || obj == ui->cboJogFeed) {
 
@@ -2857,10 +2864,10 @@ bool frmMain::eventFilter(QObject *obj, QEvent *event)
             break;
         }
     }
-
+    */
     return QMainWindow::eventFilter(obj, event);
 }
-
+/*
 int frmMain::getConsoleMinHeight()
 {
     return ui->grpConsole->height() - ui->grpConsole->contentsRect().height()
@@ -2918,7 +2925,7 @@ void frmMain::on_chkKeyboardControl_toggled(bool checked)
     updateJogTitle();
     updateControlsState();
 }
-
+*/
 void frmMain::updateJogTitle()
 {
     if (ui->grpJog->isChecked() || !ui->chkKeyboardControl->isChecked()) {
@@ -2929,7 +2936,7 @@ void frmMain::updateJogTitle()
                              .arg(ui->cboJogFeed->currentText()));
     }
 }
-
+/*
 void frmMain::on_tblProgram_customContextMenuRequested(const QPoint &pos)
 {
     if (m_processingFile) return;
@@ -3840,9 +3847,11 @@ void frmMain::jogStep()
 {
     if (m_jogVector.length() == 0) return;
 
-    if (ui->cboJogStep->currentText().toDouble() == 0) {
+    // FIXME if (ui->cboJogStep->currentText().toDouble() == 0) {
+    if (true) { // FIXME remove
         const double acc = m_settings->acceleration();              // Acceleration mm/sec^2
-        int speed = ui->cboJogFeed->currentText().toInt();          // Speed mm/min
+// FIXME        int speed = ui->cboJogFeed->currentText().toInt();          // Speed mm/min
+        int speed = 200; // FIXME remove
         double v = (double)speed / 60;                              // Rapid speed mm/sec
         int N = 15;                                                 // Planner blocks
         double dt = qMax(0.01, sqrt(v) / (2 * acc * (N - 1)));      // Single jog command time
@@ -3858,8 +3867,10 @@ void frmMain::jogStep()
                     .arg(vec.z(), 0, 'g', 4)
                     .arg(speed), -2, m_settings->showUICommands());
     } else {
-        int speed = ui->cboJogFeed->currentText().toInt();          // Speed mm/min
-        QVector3D vec = m_jogVector * ui->cboJogStep->currentText().toDouble();
+        // FIXME int speed = ui->cboJogFeed->currentText().toInt();          // Speed mm/min
+        int speed = 200; // FIXME remove
+        // FIXME QVector3D vec = m_jogVector * ui->cboJogStep->currentText().toDouble();
+        QVector3D vec = m_jogVector * 1.0; // FIXME remove
 
         sendCommand(QString("$J=G21G91X%1Y%2Z%3F%4")
                     .arg(vec.x(), 0, 'g', 4)
@@ -3946,3 +3957,4 @@ void frmMain::on_cmdStop_clicked()
     m_queue.clear();
     m_serialPort.write(QByteArray(1, char(0x85)));
 }
+*/
