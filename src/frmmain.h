@@ -83,17 +83,18 @@ class frmMain : public QMainWindow
 public:
     explicit frmMain(QWidget *parent = 0);
     ~frmMain();
-/*
-    double toolZPosition();
+
+// FIXME     double toolZPosition();
 
 private slots:
-    void updateHeightMapInterpolationDrawer(bool reset = false);
-    void placeVisualizerButtons();
+ // FIXME    void updateHeightMapInterpolationDrawer(bool reset = false);
+// FIXME     void placeVisualizerButtons();
 
     void onSerialPortReadyRead();
     void onSerialPortError(QSerialPort::SerialPortError);
     void onTimerConnection();
     void onTimerStateQuery();
+    /*
     void onVisualizatorRotationChanged();
     void onScroolBarAction(int action);
     void onJogTimer();
@@ -122,7 +123,9 @@ private slots:
     void on_actionZeroXY_triggered();
     void on_actionZeroZ_triggered();
     void on_actionReset_triggered();
-    void on_actionUnlock_triggered();
+    */
+    void on_btnUnlock_clicked();
+    /*
     void on_actionSafePosition_triggered();
     void on_cmdSpindle_toggled(bool checked);
     void on_chkTestMode_clicked(bool checked);
@@ -167,7 +170,7 @@ private slots:
     void on_cmdHeightMapBorderAuto_clicked();
     void on_cmdFileAbort_clicked();
     void on_cmdSpindle_clicked(bool checked);   
-
+    */
     void on_cmdYPlus_pressed();
 
     void on_cmdYPlus_released();
@@ -193,7 +196,7 @@ private slots:
     void on_cmdZMinus_released();
 
     void on_cmdStop_clicked();
-
+/*
 protected:
     void showEvent(QShowEvent *se);
     void hideEvent(QHideEvent *he);
@@ -326,22 +329,26 @@ private:
     void loadFile(QString fileName);
     void loadFile(QList<QString> data);
     void clearTable();
+*/
     void preloadSettings();
     void loadSettings();
+/*
     void saveSettings();
     bool saveChanges(bool heightMapMode);
+*/
     void updateControlsState();
     void openPort();
     void sendCommand(QString command, int tableIndex = -1, bool showInConsole = true);
     void grblReset();
     int bufferLength();
+
     void sendNextFileCommands();
-    void applySettings();
+// FIXME     void applySettings();
     void updateParser();
     bool dataIsFloating(QString data);
     bool dataIsEnd(QString data);
     bool dataIsReset(QString data);
-
+/*
     QTime updateProgramEstimatedTime(QList<LineSegment *> lines);
     bool saveProgramToFile(QString fileName, GCodeTableModel *model);
     QString feedOverride(QString command);
@@ -354,8 +361,9 @@ private:
     void updateRecentFilesMenu();
     void addRecentFile(QString fileName);
     void addRecentHeightmap(QString fileName);
+*/
     double toMetric(double value);
-
+/*
     QRectF borderRectFromTextboxes();
     QRectF borderRectFromExtremes();
     void updateHeightMapBorderDrawer();
@@ -369,16 +377,20 @@ private:
     void resizeTableHeightMapSections();
     void updateHeightMapGrid(double arg1);
     void resetHeightmap();
+*/
     void storeParserState();
     void restoreParserState();
     void storeOffsets();
+/*     
     bool isGCodeFile(QString fileName);
     bool isHeightmapFile(QString fileName);
-    bool compareCoordinates(double x, double y, double z);
-    int getConsoleMinHeight();
-    void updateOverride(SliderBox *slider, int value, char command);
-    void jogStep();
 */
+    bool compareCoordinates(double x, double y, double z);
+
+ // FIXME      int getConsoleMinHeight();
+    void updateOverride(QSlider *slider, int value, char command);
+    void jogStep();
+
     void updateJogTitle();
 
 };

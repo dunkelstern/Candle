@@ -22,11 +22,17 @@
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <widget class="QTabWidget" name="tabWidget">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="tabPosition">
             <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="mainTab">
             <attribute name="title">
@@ -34,92 +40,14 @@
             </attribute>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QToolButton" name="cmdTop">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Top view</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="images.qrc">
-                 <normaloff>:/images/cubeTop.png</normaloff>:/images/cubeTop.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="cmdFront">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Front view</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="images.qrc">
-                 <normaloff>:/images/cubeFront.png</normaloff>:/images/cubeFront.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="cmdIsometric">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Isometric view</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="images.qrc">
-                 <normaloff>:/images/cube.png</normaloff>:/images/cube.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QSplitter" name="splitter">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
                <widget class="QWidget" name="layoutWidget">
-                <layout class="QVBoxLayout" name="verticalLayout_8">
+                <layout class="QVBoxLayout" name="mainLeft">
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <layout class="QHBoxLayout" name="fileLine">
                    <item>
                     <widget class="QComboBox" name="comboBox"/>
                    </item>
@@ -133,10 +61,10 @@
                   </layout>
                  </item>
                  <item>
-                  <widget class="QPlainTextEdit" name="plainTextEdit"/>
+                  <widget class="QPlainTextEdit" name="gcodeViewer"/>
                  </item>
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <layout class="QHBoxLayout" name="MDIline">
                    <item>
                     <widget class="QLineEdit" name="lineEdit_4"/>
                    </item>
@@ -151,59 +79,172 @@
                  </item>
                 </layout>
                </widget>
-              </widget>
-
-             </item>
-             <item>
-              <widget class="QToolButton" name="cmdLeft">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Left view</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="images.qrc">
-                 <normaloff>:/images/cubeLeft.png</normaloff>:/images/cubeLeft.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="cmdFit">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Fit</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="images.qrc">
-                 <normaloff>:/images/fit_1.png</normaloff>:/images/fit_1.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
+               <widget class="QFrame" name="frame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <widget class="GLWidget" name="glwVisualizer" native="true">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>100</width>
+                   <height>30</height>
+                  </rect>
+                 </property>
+                </widget>
+                <widget class="QWidget" name="layoutWidget">
+                 <property name="geometry">
+                  <rect>
+                   <x>-40</x>
+                   <y>90</y>
+                   <width>241</width>
+                   <height>131</height>
+                  </rect>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_7">
+                  <item row="0" column="1">
+                   <widget class="QToolButton" name="cmdFront">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Front view</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="images.qrc">
+                      <normaloff>:/images/cubeFront.png</normaloff>:/images/cubeFront.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QToolButton" name="cmdTop">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Top view</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="images.qrc">
+                      <normaloff>:/images/cubeTop.png</normaloff>:/images/cubeTop.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QToolButton" name="cmdIsometric">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Isometric view</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="images.qrc">
+                      <normaloff>:/images/cube.png</normaloff>:/images/cube.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QToolButton" name="cmdLeft">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Left view</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="images.qrc">
+                      <normaloff>:/images/cubeLeft.png</normaloff>:/images/cubeLeft.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QToolButton" name="cmdFit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Fit</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="images.qrc">
+                      <normaloff>:/images/fit_1.png</normaloff>:/images/fit_1.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
               </widget>
              </item>
             </layout>
@@ -1587,8 +1628,8 @@
              </property>
              <property name="geometry">
               <rect>
-               <x>510</x>
-               <y>90</y>
+               <x>500</x>
+               <y>10</y>
                <width>232</width>
                <height>90</height>
               </rect>
@@ -1644,6 +1685,16 @@
               </item>
              </layout>
             </widget>
+            <widget class="QPlainTextEdit" name="txtConsole">
+             <property name="geometry">
+              <rect>
+               <x>340</x>
+               <y>100</y>
+               <width>491</width>
+               <height>240</height>
+              </rect>
+             </property>
+            </widget>
            </widget>
           </widget>
          </item>
@@ -1660,10 +1711,10 @@
              </item>
              <item>
               <layout class="QGridLayout" name="gridLayout">
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pushButton_3">
+               <item row="1" column="1">
+                <widget class="QPushButton" name="pushButton_5">
                  <property name="text">
-                  <string>Feed Hold</string>
+                  <string>Reset</string>
                  </property>
                 </widget>
                </item>
@@ -1674,6 +1725,13 @@
                  </property>
                 </widget>
                </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="pushButton_3">
+                 <property name="text">
+                  <string>Feed Hold</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="0">
                 <widget class="QPushButton" name="pushButton_2">
                  <property name="text">
@@ -1681,10 +1739,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="pushButton_5">
+               <item row="2" column="0">
+                <widget class="QPushButton" name="pushButton_8">
                  <property name="text">
-                  <string>Reset</string>
+                  <string>PushButton</string>
                  </property>
                 </widget>
                </item>
@@ -1717,7 +1775,7 @@
              </property>
              <widget class="QWidget" name="wcsTab">
               <attribute name="title">
-               <string>Tab 1</string>
+               <string>Work coordinates</string>
               </attribute>
               <layout class="QVBoxLayout" name="verticalLayout">
                <item>
@@ -1725,7 +1783,7 @@
                  <item>
                   <layout class="QGridLayout" name="gridLayout_2">
                    <item row="2" column="0">
-                    <widget class="QPushButton" name="pushButton_10">
+                    <widget class="QPushButton" name="btnZeroY">
                      <property name="text">
                       <string>Zero Y</string>
                      </property>
@@ -1760,14 +1818,14 @@
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QPushButton" name="pushButton_8">
+                    <widget class="QPushButton" name="btnZeroX">
                      <property name="text">
                       <string>Zero X</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_3">
+                    <widget class="QLineEdit" name="txtWPosZ">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
                      </property>
@@ -1777,14 +1835,14 @@
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QPushButton" name="pushButton_11">
+                    <widget class="QPushButton" name="btnZeroZ">
                      <property name="text">
                       <string>Zero Z</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit">
+                    <widget class="QLineEdit" name="txtWPosX">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
                      </property>
@@ -1794,7 +1852,7 @@
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_2">
+                    <widget class="QLineEdit" name="txtWPosY">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
                      </property>
@@ -1819,13 +1877,16 @@
                    </property>
                   </widget>
                  </item>
+                 <item>
+                  <widget class="QLineEdit" name="txtStatus"/>
+                 </item>
                 </layout>
                </item>
               </layout>
              </widget>
              <widget class="QWidget" name="mcsTab">
               <attribute name="title">
-               <string>Tab 2</string>
+               <string>Machine coordinates</string>
               </attribute>
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <item>
@@ -1833,61 +1894,6 @@
                  <item>
                   <layout class="QGridLayout" name="gridLayout_3">
                    <item row="3" column="0">
-                    <widget class="QPushButton" name="pushButton_19">
-                     <property name="text">
-                      <string>Zero Z</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="txtMPosY">
-                     <property name="styleSheet">
-                      <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
-                     </property>
-                     <property name="text">
-                      <string>0.0000</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QPushButton" name="pushButton_14">
-                     <property name="text">
-                      <string>Zero Y</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="2">
-                    <widget class="QPushButton" name="pushButton_16">
-                     <property name="text">
-                      <string>Home Y</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="txtMPosX">
-                     <property name="styleSheet">
-                      <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
-                     </property>
-                     <property name="text">
-                      <string>0.0000</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="QPushButton" name="pushButton_17">
-                     <property name="text">
-                      <string>Home X</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QPushButton" name="btnZeroX">
-                     <property name="text">
-                      <string>Zero X</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
                     <widget class="QLineEdit" name="txtMPosZ">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
@@ -1895,19 +1901,62 @@
                      <property name="text">
                       <string>0.0000</string>
                      </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
                     </widget>
                    </item>
-                   <item row="0" column="1">
+                   <item row="2" column="0">
+                    <widget class="QLineEdit" name="txtMPosY">
+                     <property name="styleSheet">
+                      <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
+                     </property>
+                     <property name="text">
+                      <string>0.0000</string>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
                     <widget class="QLabel" name="label_5">
                      <property name="text">
                       <string>Machine</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="2">
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="txtMPosX">
+                     <property name="styleSheet">
+                      <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
+                     </property>
+                     <property name="text">
+                      <string>0.0000</string>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QPushButton" name="pushButton_17">
+                     <property name="text">
+                      <string>Home X</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
                     <widget class="QPushButton" name="pushButton_15">
                      <property name="text">
                       <string>Home Z</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QPushButton" name="pushButton_16">
+                     <property name="text">
+                      <string>Home Y</string>
                      </property>
                     </widget>
                    </item>
@@ -1939,6 +1988,12 @@
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
                 <widget class="QLabel" name="label_8">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>Step:</string>
                  </property>

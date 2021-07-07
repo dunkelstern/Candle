@@ -86,7 +86,7 @@ frmMain::frmMain(QWidget *parent) :
 
     // Loading settings
     m_settingsFileName = qApp->applicationDirPath() + "/settings.ini";
-    // FIXME preloadSettings();
+    preloadSettings();
 
     m_settings = new frmSettings(this);
     ui->setupUi(this);
@@ -233,10 +233,10 @@ frmMain::frmMain(QWidget *parent) :
     m_senderErrorBox->setCheckBox(new QCheckBox(tr("Don't show again")));
 
     // Loading settings
-     // FIXME loadSettings();
+    loadSettings();
     ui->tblProgram->hideColumn(4);
     ui->tblProgram->hideColumn(5);
-     // FIXME updateControlsState();
+    updateControlsState();
 
     // Prepare jog buttons
     foreach (StyledToolButton* button, ui->grpJog->findChildren<StyledToolButton*>(QRegularExpression("cmdJogFeed\\d")))
@@ -314,7 +314,7 @@ double frmMain::toolZPosition()
 {
     return m_toolDrawer.toolPosition().z();
 }
-
+*/
 void frmMain::preloadSettings()
 {
     QSettings set(m_settingsFileName, QSettings::IniFormat);
@@ -379,10 +379,10 @@ void frmMain::loadSettings()
 
     ui->chkAutoScroll->setChecked(set.value("autoScroll", false).toBool());
 
-    ui->slbSpindle->setRatio(100);
-    ui->slbSpindle->setMinimum(m_settings->spindleSpeedMin());
-    ui->slbSpindle->setMaximum(m_settings->spindleSpeedMax());
-    ui->slbSpindle->setValue(set.value("spindleSpeed", 100).toInt());
+// FIXME    ui->slbSpindle->setRatio(100);
+// FIXME    ui->slbSpindle->setMinimum(m_settings->spindleSpeedMin());
+// FIXME    ui->slbSpindle->setMaximum(m_settings->spindleSpeedMax());
+// FIXME    ui->slbSpindle->setValue(set.value("spindleSpeed", 100).toInt());
 
 // FIXME    ui->slbFeedOverride->setChecked(set.value("feedOverride", false).toBool());
 // FIXME    ui->slbFeedOverride->setValue(set.value("feedOverrideValue", 100).toInt());
@@ -409,11 +409,11 @@ void frmMain::loadSettings()
     } else ui->splitter->restoreState(splitterState);
 
     ui->chkAutoScroll->setVisible(ui->splitter->sizes()[1]);
-    resizeCheckBoxes();
+// FIXME    resizeCheckBoxes();
 
-    ui->cboCommand->setMinimumHeight(ui->cboCommand->height());
-    ui->cmdClearConsole->setFixedHeight(ui->cboCommand->height());
-    ui->cmdCommandSend->setFixedHeight(ui->cboCommand->height());
+ // FIXME   ui->cboCommand->setMinimumHeight(ui->cboCommand->height());
+ // FIXME   ui->cmdClearConsole->setFixedHeight(ui->cboCommand->height());
+ // FIXME   ui->cmdCommandSend->setFixedHeight(ui->cboCommand->height());
 
     m_storedKeyboardControl = set.value("keyboardControl", false).toBool();
 
@@ -452,29 +452,29 @@ void frmMain::loadSettings()
         pick->setColor(QColor(set.value(pick->objectName().mid(3), "black").toString()));
     }
 
-    updateRecentFilesMenu();
+// FIXME    updateRecentFilesMenu();
 
     ui->tblProgram->horizontalHeader()->restoreState(set.value("header", QByteArray()).toByteArray());
 
     // Update right panel width
-    applySettings();
+    // FIXME applySettings();
     show();
-    ui->scrollArea->updateMinimumWidth();
+    // FIXME ui->scrollArea->updateMinimumWidth();
 
     // Restore panels state
-    ui->grpUserCommands->setChecked(set.value("userCommandsPanel", true).toBool());
+    // FIXME ui->grpUserCommands->setChecked(set.value("userCommandsPanel", true).toBool());
     ui->grpHeightMap->setChecked(set.value("heightmapPanel", true).toBool());
-    ui->grpSpindle->setChecked(set.value("spindlePanel", true).toBool());
+    // FIXME ui->grpSpindle->setChecked(set.value("spindlePanel", true).toBool());
     // FIXME ui->grpOverriding->setChecked(set.value("feedPanel", true).toBool());
     ui->grpJog->setChecked(set.value("jogPanel", true).toBool());
 
     // Restore last commands list
-    ui->cboCommand->addItems(set.value("recentCommands", QStringList()).toStringList());
-    ui->cboCommand->setCurrentIndex(-1);
+    // FIXME ui->cboCommand->addItems(set.value("recentCommands", QStringList()).toStringList());
+    // FIXME ui->cboCommand->setCurrentIndex(-1);
 
     m_settingsLoading = false;
 }
-
+/*
 void frmMain::saveSettings()
 {
     QSettings set(m_settingsFileName, QSettings::IniFormat);
@@ -613,42 +613,43 @@ bool frmMain::saveChanges(bool heightMapMode)
 
     return true;
 }
-
+*/
 void frmMain::updateControlsState() {
     bool portOpened = m_serialPort.isOpen();
 
-    ui->grpState->setEnabled(portOpened);
-    ui->menuControl->setEnabled(portOpened);
-    ui->widgetUserCommands->setEnabled(portOpened && !m_processingFile);
-    ui->widgetSpindle->setEnabled(portOpened);
+// FIXME ui->grpState->setEnabled(portOpened);
+    // FIXME ui->menuControl->setEnabled(portOpened);
+    // FIXME ui->widgetUserCommands->setEnabled(portOpened && !m_processingFile);
+    // FIXME ui->widgetSpindle->setEnabled(portOpened);
     ui->widgetJog->setEnabled(portOpened && !m_processingFile);
 //    ui->grpConsole->setEnabled(portOpened);
-    ui->cboCommand->setEnabled(portOpened && (!ui->chkKeyboardControl->isChecked()));
-    ui->cmdCommandSend->setEnabled(portOpened);
+    // FIXME ui->cboCommand->setEnabled(portOpened && (!ui->chkKeyboardControl->isChecked()));
+    // FIXME ui->cmdCommandSend->setEnabled(portOpened);
 //    ui->widgetFeed->setEnabled(!m_transferringFile);
 
     ui->chkTestMode->setEnabled(portOpened && !m_processingFile);
-    ui->actionHome->setEnabled(!m_processingFile);
-    ui->actionTouch->setEnabled(!m_processingFile);
-    ui->actionZeroXY->setEnabled(!m_processingFile);
-    ui->actionZeroZ->setEnabled(!m_processingFile);
-    ui->actionSafePosition->setEnabled(!m_processingFile);
-    ui->actionUnlock->setEnabled(!m_processingFile);
-    ui->actionOutline->setEnabled(!m_processingFile);
-    ui->cmdSpindle->setEnabled(!m_processingFile);
+    // FIXME ui->actionHome->setEnabled(!m_processingFile);
+    // FIXME ui->actionTouch->setEnabled(!m_processingFile);
+    ui->btnZeroX->setEnabled(!m_processingFile);
+    ui->btnZeroY->setEnabled(!m_processingFile);
+    ui->btnZeroZ->setEnabled(!m_processingFile);
+    // FIXME ui->actionSafePosition->setEnabled(!m_processingFile);
+    ui->btnUnlock->setEnabled(!m_processingFile);
+    // FIXME ui->actionOutline->setEnabled(!m_processingFile);
+    // FIXME ui->cmdSpindle->setEnabled(!m_processingFile);
 
-    ui->actFileNew->setEnabled(!m_processingFile);
-    ui->actFileOpen->setEnabled(!m_processingFile);
+    // FIXME ui->actFileNew->setEnabled(!m_processingFile);
+    // FIXME ui->actFileOpen->setEnabled(!m_processingFile);
     ui->cmdFileOpen->setEnabled(!m_processingFile);
     ui->cmdFileReset->setEnabled(!m_processingFile && m_programModel.rowCount() > 1);
     ui->cmdFileSend->setEnabled(portOpened && !m_processingFile && m_programModel.rowCount() > 1);
     ui->cmdFilePause->setEnabled(m_processingFile && !ui->chkTestMode->isChecked());
     ui->cmdFileAbort->setEnabled(m_processingFile);
-    ui->actFileOpen->setEnabled(!m_processingFile);
-    ui->mnuRecent->setEnabled(!m_processingFile && ((m_recentFiles.count() > 0 && !m_heightMapMode)
-                                                      || (m_recentHeightmaps.count() > 0 && m_heightMapMode)));
-    ui->actFileSave->setEnabled(m_programModel.rowCount() > 1);
-    ui->actFileSaveAs->setEnabled(m_programModel.rowCount() > 1);
+    // FIXME ui->actFileOpen->setEnabled(!m_processingFile);
+    // FIXME ui->mnuRecent->setEnabled(!m_processingFile && ((m_recentFiles.count() > 0 && !m_heightMapMode)
+    // FIXME                                                   || (m_recentHeightmaps.count() > 0 && m_heightMapMode)));
+    // FIXME ui->actFileSave->setEnabled(m_programModel.rowCount() > 1);
+    // FIXME ui->actFileSaveAs->setEnabled(m_programModel.rowCount() > 1);
 
     ui->tblProgram->setEditTriggers(m_processingFile ? QAbstractItemView::NoEditTriggers :
                                                          QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked
@@ -686,10 +687,10 @@ void frmMain::updateControlsState() {
     m_heightMapGridDrawer.setVisible(ui->chkHeightMapGridShow->isChecked() && m_heightMapMode);
     m_heightMapInterpolationDrawer.setVisible(ui->chkHeightMapInterpolationShow->isChecked() && m_heightMapMode);
 
-    ui->grpProgram->setTitle(m_heightMapMode ? tr("Heightmap") : tr("G-code program"));
-    ui->grpProgram->setProperty("overrided", m_heightMapMode);
-    style()->unpolish(ui->grpProgram);
-    ui->grpProgram->ensurePolished();
+    // FIXME ui->grpProgram->setTitle(m_heightMapMode ? tr("Heightmap") : tr("G-code program"));
+    // FIXME ui->grpProgram->setProperty("overrided", m_heightMapMode);
+    // FIXME style()->unpolish(ui->grpProgram);
+    // FIXME ui->grpProgram->ensurePolished();
 
     ui->grpHeightMapSettings->setVisible(m_heightMapMode);
     ui->grpHeightMapSettings->setEnabled(!m_processingFile && !ui->chkKeyboardControl->isChecked());
@@ -712,7 +713,7 @@ void frmMain::updateControlsState() {
 
     ui->chkHeightMapUse->setEnabled(!m_heightMapMode && !ui->txtHeightMap->text().isEmpty());
 
-    ui->actFileSaveTransformedAs->setVisible(ui->chkHeightMapUse->isChecked());
+    // FIXME ui->actFileSaveTransformedAs->setVisible(ui->chkHeightMapUse->isChecked());
 
     ui->cmdFileSend->menu()->actions().first()->setEnabled(!ui->cmdHeightMapMode->isChecked());
 
@@ -724,20 +725,20 @@ void frmMain::openPort()
     if (m_serialPort.open(QIODevice::ReadWrite)) {
         ui->txtStatus->setText(tr("Port opened"));
         ui->txtStatus->setStyleSheet(QString("background-color: palette(button); color: palette(text);"));
-//        updateControlsState();
+        updateControlsState();
         grblReset();
     }
 }
 
 void frmMain::sendCommand(QString command, int tableIndex, bool showInConsole)
 {
+    qDebug() << "sendCommand:" << command << " open=" << m_serialPort.isOpen() << "  rc=" << m_resetCompleted;
     if (!m_serialPort.isOpen() || !m_resetCompleted) return;
-
     command = command.toUpper();
 
     // Commands queue
     if ((bufferLength() + command.length() + 1) > BUFFERLENGTH) {
-//        qDebug() << "queue:" << command;
+        qDebug() << "queue:" << command;
 
         CommandQueue cq;
 
@@ -770,9 +771,9 @@ void frmMain::sendCommand(QString command, int tableIndex, bool showInConsole)
     QRegExp s("[Ss]0*(\\d+)");
     if (s.indexIn(command) != -1 && ca.tableIndex > -2) {
         int speed = s.cap(1).toInt();
-        if (ui->slbSpindle->value() != speed) {
-            ui->slbSpindle->setValue(speed);
-        }
+     // FIXME    if (ui->slbSpindle->value() != speed) {
+     // FIXME        ui->slbSpindle->setValue(speed);
+     // FIXME    }
     }
 
     // Set M2 & M30 commands sent flag
@@ -873,14 +874,15 @@ void frmMain::onSerialPortReadyRead()
                 }
 
                 // Update controls
-                ui->actionSafePosition->setEnabled(status == IDLE);
-                ui->actionZeroXY->setEnabled(status == IDLE);
-                ui->actionZeroZ->setEnabled(status == IDLE);
-		ui->actionOutline->setEnabled(status == IDLE);
+              // FIXME   ui->actionSafePosition->setEnabled(status == IDLE);
+                ui->btnZeroX->setEnabled(status == IDLE);
+                ui->btnZeroY->setEnabled(status == IDLE);
+                ui->btnZeroZ->setEnabled(status == IDLE);
+               // FIXME  ui->actionOutline->setEnabled(status == IDLE);
                 ui->chkTestMode->setEnabled(status != RUN && !m_processingFile);
                 ui->chkTestMode->setChecked(status == CHECK);
-                ui->cmdFilePause->setChecked(status == HOLD0 || status == HOLD1 || status == QUEUE);
-                ui->cmdSpindle->setEnabled(!m_processingFile || status == HOLD0);
+               // FIXME  ui->cmdFilePause->setChecked(status == HOLD0 || status == HOLD1 || status == QUEUE);
+              // FIXME   ui->cmdSpindle->setEnabled(!m_processingFile || status == HOLD0);
 #ifdef WINDOWS
                 if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS7) {
                     if (m_taskBarProgress) m_taskBarProgress->setPaused(status == HOLD0 || status == HOLD1 || status == QUEUE);
@@ -1024,8 +1026,8 @@ void frmMain::onSerialPortReadyRead()
             static QRegExp ov("Ov:([^,]*),([^,]*),([^,^>^|]*)");
             if (ov.indexIn(data) != -1)
             {                
-                updateOverride(ui->slbFeedOverride, ov.cap(1).toInt(), 0x91);
-                updateOverride(ui->slbSpindleOverride, ov.cap(3).toInt(), 0x9a);
+                // FIXME updateOverride(ui->slbFeedOverride, ov.cap(1).toInt(), 0x91);
+                // FIXME updateOverride(ui->slbSpindleOverride, ov.cap(3).toInt(), 0x9a);
 
                 int rapid = ov.cap(2).toInt();
                 ui->slbRapidOverride->setCurrentValue(rapid);
@@ -1058,17 +1060,17 @@ void frmMain::onSerialPortReadyRead()
                     m_spindleCW = state.contains("S");
                     if (state.contains("S") || state.contains("C")) {
                         m_timerToolAnimation.start(25, this);
-                        ui->cmdSpindle->setChecked(true);
+                        // FIXME ui->cmdSpindle->setChecked(true);
                     } else {
                         m_timerToolAnimation.stop();
-                        ui->cmdSpindle->setChecked(false);
+                        // FIXME ui->cmdSpindle->setChecked(false);
                     }
 
                     if (!pinState.isEmpty()) pinState.append(" / ");
                     pinState.append(QString(tr("AS: %1")).arg(as.cap(1)));
                 } else {
                     m_timerToolAnimation.stop();
-                    ui->cmdSpindle->setChecked(false);
+                    // FIXME ui->cmdSpindle->setChecked(false);
                 }
                 ui->glwVisualizer->setPinState(pinState);
             }
@@ -1080,16 +1082,13 @@ void frmMain::onSerialPortReadyRead()
             }
 
         } else if (data.length() > 0) {
-
             // Processed commands
             if (m_commands.length() > 0 && !dataIsFloating(data)
                     && !(m_commands[0].command != "[CTRL+X]" && dataIsReset(data))) {
-
                 static QString response; // Full response string
 
                 if ((m_commands[0].command != "[CTRL+X]" && dataIsEnd(data))
                         || (m_commands[0].command == "[CTRL+X]" && dataIsReset(data))) {
-
                     response.append(data);
 
                     // Take command from buffer
@@ -1111,7 +1110,9 @@ void frmMain::onSerialPortReadyRead()
                     // Process parser status
                     if (ca.command.toUpper() == "$G" && ca.tableIndex == -3) {
                         // Update status in visualizer window
-                        ui->glwVisualizer->setParserStatus(response.left(response.indexOf("; ")));
+                        QString status = response.left(response.indexOf("; "));
+                        ui->glwVisualizer->setParserStatus(status); // FIXME
+                        ui->lblParserStatus->setText(status);
 
                         // Store parser status
                         if (m_processingFile) storeParserState();
@@ -1119,8 +1120,8 @@ void frmMain::onSerialPortReadyRead()
                         // Spindle speed
                         QRegExp rx(".*S([\\d\\.]+)");
                         if (rx.indexIn(response) != -1) {
-                            double speed = toMetric(rx.cap(1).toDouble()); //RPM in imperial?
-                            ui->slbSpindle->setCurrentValue(speed);
+                            // FIXME double speed = toMetric(rx.cap(1).toDouble()); //RPM in imperial?
+                            // FIXME ui->slbSpindle->setCurrentValue(speed);
                         }
 
                         m_updateParserStatus = true;
@@ -1185,7 +1186,7 @@ void frmMain::onSerialPortReadyRead()
                             // Store Z in table
                             m_heightMapModel.setData(m_heightMapModel.index(row, column), z, Qt::UserRole);
                             ui->tblHeightMap->update(m_heightMapModel.index(m_heightMapModel.rowCount() - 1 - row, column));
-                            updateHeightMapInterpolationDrawer();
+                            // FIXME updateHeightMapInterpolationDrawer();
                         }
 
                         m_probeIndex++;
@@ -1270,7 +1271,11 @@ void frmMain::onSerialPortReadyRead()
                                 holding = false;
                                 errors.clear();
                                 if (m_senderErrorBox->checkBox()->isChecked()) m_settings->setIgnoreErrors(true);
-                                if (result == QMessageBox::Ignore) m_serialPort.write("~"); else on_cmdFileAbort_clicked();
+                                if (result == QMessageBox::Ignore) {
+                                    m_serialPort.write("~");
+                                } else {
+                                    // FIXME on_cmdFileAbort_clicked();
+                                }
                             }
                         }
 
@@ -1376,12 +1381,12 @@ void frmMain::onTimerConnection()
     if (!m_serialPort.isOpen()) {
         openPort();
 
-*/
-//  } else if (!m_homing/* && !m_reseting*/ && !ui->cmdFilePause->isChecked() && m_queue.length() == 0) {
-/*
+
+  } else if (!m_homing/* && !m_reseting*/ && !ui->cmdFilePause->isChecked() && m_queue.length() == 0) {
+
         if (m_updateSpindleSpeed) {
             m_updateSpindleSpeed = false;
-            sendCommand(QString("S%1").arg(ui->slbSpindle->value()), -2, m_settings->showUICommands());
+            // FIXME sendCommand(QString("S%1").arg(ui->slbSpindle->value()), -2, m_settings->showUICommands());
         }
         if (m_updateParserStatus) {
             m_updateParserStatus = false;
@@ -1399,7 +1404,7 @@ void frmMain::onTimerStateQuery()
 
     ui->glwVisualizer->setBufferState(QString(tr("Buffer: %1 / %2 / %3")).arg(bufferLength()).arg(m_commands.length()).arg(m_queue.length()));
 }
-
+/*
 void frmMain::onVisualizatorRotationChanged()
 {
     ui->cmdIsometric->setChecked(false);
@@ -1982,7 +1987,7 @@ void frmMain::on_cmdFileAbort_clicked()
         grblReset();
     }
 }
-
+*/
 void frmMain::storeParserState()
 {    
     m_storedParserStatus = ui->glwVisualizer->parserStatus().remove(
@@ -2000,6 +2005,7 @@ void frmMain::storeOffsets()
 }
 
 void frmMain::sendNextFileCommands() {
+    /*
     if (m_queue.length() > 0) return;
 
     QString command = feedOverride(m_currentModel->data(m_currentModel->index(m_fileCommandIndex, 1)).toString());
@@ -2012,8 +2018,9 @@ void frmMain::sendNextFileCommands() {
         m_fileCommandIndex++;
         command = feedOverride(m_currentModel->data(m_currentModel->index(m_fileCommandIndex, 1)).toString());
     }
+    */
 }
-
+/*
 void frmMain::onTableCellChanged(QModelIndex i1, QModelIndex i2)
 {
     Q_UNUSED(i2)
@@ -2395,13 +2402,14 @@ void frmMain::on_actionReset_triggered()
 {
     grblReset();
 }
-
-void frmMain::on_actionUnlock_triggered()
+*/
+void frmMain::on_btnUnlock_clicked()
 {
+    qDebug() << "unlock";
     m_updateSpindleSpeed = true;
     sendCommand("$X", -1, m_settings->showUICommands());
 }
-
+/*
 void frmMain::on_actionSafePosition_triggered()
 {
     QStringList list = m_settings->safePositionCommand().split(";");
@@ -2668,7 +2676,7 @@ void frmMain::on_actAbout_triggered()
 {
     m_frmAbout.exec();
 }
-
+*/
 bool frmMain::dataIsEnd(QString data) {
     QStringList ends;
 
@@ -2709,7 +2717,7 @@ bool frmMain::dataIsFloating(QString data) {
 bool frmMain::dataIsReset(QString data) {
     return QRegExp("^GRBL|GCARVIN\\s\\d\\.\\d.").indexIn(data.toUpper()) != -1;
 }
-
+/*
 QString frmMain::feedOverride(QString command)
 {
     // Feed override if not in heightmap probing mode
@@ -3035,12 +3043,12 @@ void frmMain::on_actRecentClear_triggered()
     if (!m_heightMapMode) m_recentFiles.clear(); else m_recentHeightmaps.clear();
     updateRecentFilesMenu();
 }
-
+*/
 double frmMain::toMetric(double value)
 {
     return m_settings->units() == 0 ? value : value * 25.4;
 }
-
+/*
 void frmMain::on_grpHeightMap_toggled(bool arg1)
 {
     ui->widgetHeightMap->setVisible(arg1);
@@ -3804,12 +3812,12 @@ void frmMain::on_cmdHeightMapBorderAuto_clicked()
         ui->txtHeightMapBorderHeight->setValue(rect.height());
     }
 }
-
+*/
 bool frmMain::compareCoordinates(double x, double y, double z)
 {
     return ui->txtMPosX->text().toDouble() == x && ui->txtMPosY->text().toDouble() == y && ui->txtMPosZ->text().toDouble() == z;
 }
-
+/*
 void frmMain::onCmdUserClicked(bool)
 {
     int i = sender()->objectName().right(1).toInt();
@@ -3842,7 +3850,7 @@ void frmMain::updateOverride(SliderBox *slider, int value, char command)
         m_serialPort.write(QByteArray(1, char(smallStep ? command + 3 : command + 1)));
     }
 }
-
+*/
 void frmMain::jogStep()
 {
     if (m_jogVector.length() == 0) return;
@@ -3957,4 +3965,4 @@ void frmMain::on_cmdStop_clicked()
     m_queue.clear();
     m_serialPort.write(QByteArray(1, char(0x85)));
 }
-*/
+
