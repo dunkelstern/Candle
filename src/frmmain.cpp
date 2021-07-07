@@ -2383,26 +2383,32 @@ void frmMain::on_actionOutline_triggered()
     sendCommand(QString("G0 X%1 Y%2").arg(toMetric(min.x())).arg(toMetric(max.y())), -1, m_settings->showUICommands());
     sendCommand(QString("G0 X%1 Y%2").arg(toMetric(min.x())).arg(toMetric(min.y())), -1, m_settings->showUICommands());
 }
-
-void frmMain::on_actionZeroXY_triggered()
+*/
+void frmMain::on_btnZeroX_clicked()
 {
     m_settingZeroXY = true;
-    sendCommand("G10 L20 X0Y0", -1, m_settings->showUICommands());
+    sendCommand("G10 L20 X0", -1, m_settings->showUICommands());
+    sendCommand("$#", -2, m_settings->showUICommands());
+}
+void frmMain::on_btnZeroY_clicked()
+{
+    m_settingZeroXY = true;
+    sendCommand("G10 L20 Y0", -1, m_settings->showUICommands());
     sendCommand("$#", -2, m_settings->showUICommands());
 }
 
-void frmMain::on_actionZeroZ_triggered()
+void frmMain::on_btnZeroZ_clicked()
 {
     m_settingZeroZ = true;
     sendCommand("G10 L20 Z0", -1, m_settings->showUICommands());
     sendCommand("$#", -2, m_settings->showUICommands());
 }
 
-void frmMain::on_actionReset_triggered()
+void frmMain::on_btnReset_clicked()
 {
     grblReset();
 }
-*/
+
 void frmMain::on_btnUnlock_clicked()
 {
     qDebug() << "unlock";

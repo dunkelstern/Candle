@@ -120,10 +120,11 @@ private slots:
     void on_actionHome_triggered();
     void on_actionOutline_triggered();
     void on_actionTouch_triggered();
-    void on_actionZeroXY_triggered();
-    void on_actionZeroZ_triggered();
-    void on_actionReset_triggered();
     */
+    void on_btnZeroX_clicked();
+    void on_btnZeroY_clicked();
+    void on_btnZeroZ_clicked();
+    void on_btnReset_clicked();
     void on_btnUnlock_clicked();
     /*
     void on_actionSafePosition_triggered();

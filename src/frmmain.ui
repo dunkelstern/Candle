@@ -19,7 +19,7 @@
      <widget class="QWidget" name="Work" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
+        <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,0">
          <item>
           <widget class="QTabWidget" name="tabWidget">
            <property name="sizePolicy">
@@ -32,7 +32,7 @@
             <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="mainTab">
             <attribute name="title">
@@ -1740,9 +1740,9 @@
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QPushButton" name="pushButton_8">
+                <widget class="QPushButton" name="btnUnlock">
                  <property name="text">
-                  <string>PushButton</string>
+                  <string>Unlock</string>
                  </property>
                 </widget>
                </item>
@@ -1771,7 +1771,7 @@
            <item>
             <widget class="QTabWidget" name="coordinates">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="wcsTab">
               <attribute name="title">
@@ -1871,14 +1871,21 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="label_7">
+                  <widget class="QLabel" name="lblParserStatus">
                    <property name="text">
                     <string>G54 bla bla bla</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="txtStatus"/>
+                  <widget class="QLineEdit" name="txtStatus">
+                   <property name="styleSheet">
+                    <string notr="true">font: 14pt </string>
+                   </property>
+                   <property name="text">
+                    <string>Running</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -1893,7 +1900,7 @@
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
                   <layout class="QGridLayout" name="gridLayout_3">
-                   <item row="3" column="0">
+                   <item row="3" column="1">
                     <widget class="QLineEdit" name="txtMPosZ">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
@@ -1906,7 +1913,7 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="0">
+                   <item row="2" column="1">
                     <widget class="QLineEdit" name="txtMPosY">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
@@ -1919,14 +1926,14 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0">
+                   <item row="0" column="1">
                     <widget class="QLabel" name="label_5">
                      <property name="text">
                       <string>Machine</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
+                   <item row="1" column="1">
                     <widget class="QLineEdit" name="txtMPosX">
                      <property name="styleSheet">
                       <string notr="true">font: 20pt &quot;Noto Sans&quot;;</string>
@@ -1939,24 +1946,54 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
+                   <item row="1" column="2">
                     <widget class="QPushButton" name="pushButton_17">
                      <property name="text">
                       <string>Home X</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
+                   <item row="3" column="2">
                     <widget class="QPushButton" name="pushButton_15">
                      <property name="text">
                       <string>Home Z</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
+                   <item row="2" column="2">
                     <widget class="QPushButton" name="pushButton_16">
                      <property name="text">
                       <string>Home Y</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label">
+                     <property name="styleSheet">
+                      <string notr="true">font: 20pt</string>
+                     </property>
+                     <property name="text">
+                      <string>X</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_2">
+                     <property name="styleSheet">
+                      <string notr="true">font: 20pt</string>
+                     </property>
+                     <property name="text">
+                      <string>Y</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_3">
+                     <property name="styleSheet">
+                      <string notr="true">font: 20pt</string>
+                     </property>
+                     <property name="text">
+                      <string>Z</string>
                      </property>
                     </widget>
                    </item>
