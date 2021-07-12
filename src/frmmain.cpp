@@ -1417,11 +1417,6 @@ void frmMain::onScroolBarAction(int action)
     if (m_processingFile) ui->chkAutoScroll->setChecked(false);
 }
 
-void frmMain::onJogTimer()
-{
-    m_jogBlock = false;
-}
-
 void frmMain::placeVisualizerButtons()
 {
     ui->cmdIsometric->move(ui->glwVisualizer->width() - ui->cmdIsometric->width() - 8, 8);

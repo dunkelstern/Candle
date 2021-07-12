@@ -97,7 +97,6 @@ private slots:
     /*
     void onVisualizatorRotationChanged();
     void onScroolBarAction(int action);
-    void onJogTimer();
     void onTableInsertLine();
     void onTableDeleteLines();
     void onActRecentFileTriggered();
@@ -313,7 +312,6 @@ private:
 
     // Keyboard
     bool m_keyPressed = false;
-    bool m_jogBlock = false;
     bool m_absoluteCoordinates;
     bool m_storedKeyboardControl;
 
