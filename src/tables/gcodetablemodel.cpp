@@ -6,6 +6,7 @@
 GCodeTableModel::GCodeTableModel(QObject *parent) :
     QAbstractTableModel(parent)
 {
+    //               0      1                2              3                 4             5
     m_headers << tr("#") << tr("Command") << tr("State") << tr("Response") << tr("Line") << tr("Args");
 }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>873</width>
-    <height>800</height>
+    <width>2074</width>
+    <height>1656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,10 +49,23 @@
                  <item>
                   <layout class="QHBoxLayout" name="fileLine">
                    <item>
-                    <widget class="QComboBox" name="comboBox"/>
+                    <widget class="QComboBox" name="comboBox">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
                    </item>
                    <item>
-                    <widget class="QToolButton" name="toolButton">
+                    <widget class="QPushButton" name="cmdFileOpen">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="text">
                       <string>...</string>
                      </property>
@@ -61,7 +74,14 @@
                   </layout>
                  </item>
                  <item>
-                  <widget class="QPlainTextEdit" name="gcodeViewer"/>
+                  <widget class="GCodeEditor" name="gcodeEditor" native="true">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <layout class="QHBoxLayout" name="MDIline">
@@ -79,171 +99,167 @@
                  </item>
                 </layout>
                </widget>
-               <widget class="QFrame" name="frame">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
-                </property>
-                <widget class="GLWidget" name="glwVisualizer" native="true">
-                 <property name="geometry">
-                  <rect>
-                   <x>0</x>
-                   <y>0</y>
-                   <width>100</width>
-                   <height>30</height>
-                  </rect>
-                 </property>
-                </widget>
-                <widget class="QWidget" name="layoutWidget">
-                 <property name="geometry">
-                  <rect>
-                   <x>-40</x>
-                   <y>90</y>
-                   <width>241</width>
-                   <height>131</height>
-                  </rect>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_7">
-                  <item row="0" column="1">
-                   <widget class="QToolButton" name="cmdFront">
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>30</height>
-                     </size>
+               <widget class="GLWidget" name="glwVisualizer" native="true">
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QFrame" name="frame">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <widget class="QWidget" name="layoutWidget">
+                    <property name="geometry">
+                     <rect>
+                      <x>-170</x>
+                      <y>-90</y>
+                      <width>241</width>
+                      <height>131</height>
+                     </rect>
                     </property>
-                    <property name="toolTip">
-                     <string>Front view</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="images.qrc">
-                      <normaloff>:/images/cubeFront.png</normaloff>:/images/cubeFront.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
+                    <layout class="QGridLayout" name="gridLayout_7">
+                     <item row="0" column="1">
+                      <widget class="QToolButton" name="cmdFront">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Front view</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="images.qrc">
+                         <normaloff>:/images/cubeFront.png</normaloff>:/images/cubeFront.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>20</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QToolButton" name="cmdTop">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Top view</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="images.qrc">
+                         <normaloff>:/images/cubeTop.png</normaloff>:/images/cubeTop.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>20</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QToolButton" name="cmdIsometric">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Isometric view</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="images.qrc">
+                         <normaloff>:/images/cube.png</normaloff>:/images/cube.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>20</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QToolButton" name="cmdLeft">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Left view</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="images.qrc">
+                         <normaloff>:/images/cubeLeft.png</normaloff>:/images/cubeLeft.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>20</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QToolButton" name="cmdFit">
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Fit</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset resource="images.qrc">
+                         <normaloff>:/images/fit_1.png</normaloff>:/images/fit_1.png</iconset>
+                       </property>
+                       <property name="iconSize">
+                        <size>
+                         <width>20</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QToolButton" name="cmdTop">
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Top view</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="images.qrc">
-                      <normaloff>:/images/cubeTop.png</normaloff>:/images/cubeTop.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QToolButton" name="cmdIsometric">
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Isometric view</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="images.qrc">
-                      <normaloff>:/images/cube.png</normaloff>:/images/cube.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QToolButton" name="cmdLeft">
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Left view</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="images.qrc">
-                      <normaloff>:/images/cubeLeft.png</normaloff>:/images/cubeLeft.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QToolButton" name="cmdFit">
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Fit</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="images.qrc">
-                      <normaloff>:/images/fit_1.png</normaloff>:/images/fit_1.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </widget>
              </item>
@@ -315,52 +331,9 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="cmdFileOpen">
-                <property name="text">
-                 <string>Open</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="cmdFileReset">
                 <property name="text">
                  <string>Reset</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QToolButton" name="cmdFileSend">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="baseSize">
-                 <size>
-                  <width>93</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Send</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="cmdFilePause">
-                <property name="text">
-                 <string>Pause</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="cmdFileAbort">
-                <property name="text">
-                 <string>Abort</string>
                 </property>
                </widget>
               </item>
@@ -1466,7 +1439,7 @@
                       <number>0</number>
                      </property>
                      <item>
-                      <widget class="StyledToolButton" name="cmdStop">
+                      <widget class="StyledToolButton" name="cmdReset_2">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -1703,7 +1676,7 @@
            <item>
             <layout class="QVBoxLayout" name="control">
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="cmdCycleStart">
                <property name="text">
                 <string>Cycle Start</string>
                </property>
@@ -1711,38 +1684,38 @@
              </item>
              <item>
               <layout class="QGridLayout" name="gridLayout">
-               <item row="1" column="1">
-                <widget class="QPushButton" name="pushButton_5">
-                 <property name="text">
-                  <string>Reset</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
-                <widget class="QPushButton" name="pushButton_4">
+                <widget class="QPushButton" name="cmdStop">
                  <property name="text">
                   <string>Stop</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pushButton_3">
+               <item row="1" column="1">
+                <widget class="QPushButton" name="cmdReset">
                  <property name="text">
-                  <string>Feed Hold</string>
+                  <string>Reset</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="cmdSingleBlock">
                  <property name="text">
                   <string>Single Block</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QPushButton" name="btnUnlock">
+                <widget class="QPushButton" name="cmdUnlock">
                  <property name="text">
                   <string>Unlock</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="cmdFeedHold">
+                 <property name="text">
+                  <string>Feed Hold</string>
                  </property>
                 </widget>
                </item>
@@ -1752,6 +1725,12 @@
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
                 <widget class="QSlider" name="slbFeedOverride">
+                 <property name="maximum">
+                  <number>300</number>
+                 </property>
+                 <property name="value">
+                  <number>100</number>
+                 </property>
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -1769,7 +1748,7 @@
             </layout>
            </item>
            <item>
-            <widget class="QTabWidget" name="coordinates">
+            <widget class="QTabWidget" name="tabCoordinates">
              <property name="currentIndex">
               <number>0</number>
              </property>
@@ -2126,6 +2105,12 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>GCodeEditor</class>
+   <extends>QWidget</extends>
+   <header>widgets/gcodeeditor.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>GroupBox</class>
    <extends>QGroupBox</extends>

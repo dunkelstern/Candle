@@ -30,6 +30,8 @@
 #include "drawers/shaderdrawable.h"
 #include "drawers/selectiondrawer.h"
 
+#include "models/gcodemodel.h"
+
 #include "tables/gcodetablemodel.h"
 #include "tables/heightmaptablemodel.h"
 
@@ -76,6 +78,18 @@ public:
     }
 };
 
+const QMap<QString, QColor> colorSettings{
+    {"ToolpathZMovement", QColor(255, 0, 0)},
+    {"ToolpathHighlight", QColor(145, 130, 230)},
+    {"ToolpathStart", QColor(255, 0, 0)},
+    {"ToolpathEnd", QColor(0, 255, 0)},
+    {"VisualizerBackground", QColor(255, 255, 255)},
+    {"VisualizerText", QColor(0, 0, 0)},
+    {"Tool", QColor(255, 153, 0)},
+    {"ToolpathDrawn", QColor(217, 217, 217)},
+    {"ToolpathNormal", QColor(0, 0, 0)}
+};
+
 class frmMain : public QMainWindow
 {
     Q_OBJECT
@@ -88,14 +102,14 @@ public:
 
 private slots:
  // FIXME    void updateHeightMapInterpolationDrawer(bool reset = false);
-// FIXME     void placeVisualizerButtons();
+    void placeVisualizerButtons();
 
     void onSerialPortReadyRead();
     void onSerialPortError(QSerialPort::SerialPortError);
     void onTimerConnection();
     void onTimerStateQuery();
-    /*
     void onVisualizatorRotationChanged();
+    /*
     void onScroolBarAction(int action);
     void onTableInsertLine();
     void onTableDeleteLines();
@@ -109,9 +123,13 @@ private slots:
     void onActSendFromLineTriggered();
 
     void on_actFileExit_triggered();
+    */
     void on_cmdFileOpen_clicked();
+    /*
     void on_cmdFit_clicked();
-    void on_cmdFileSend_clicked();
+    */
+    void on_cmdCycleStart_clicked();
+    /*
     void onTableCellChanged(QModelIndex i1, QModelIndex i2);
     void on_actServiceSettings_triggered();
     void on_actFileOpen_triggered();
@@ -123,23 +141,29 @@ private slots:
     void on_btnZeroX_clicked();
     void on_btnZeroY_clicked();
     void on_btnZeroZ_clicked();
-    void on_btnReset_clicked();
-    void on_btnUnlock_clicked();
+    void on_cmdReset_clicked();
+    void on_cmdUnlock_clicked();
     /*
     void on_actionSafePosition_triggered();
     void on_cmdSpindle_toggled(bool checked);
     void on_chkTestMode_clicked(bool checked);
-    void on_cmdFilePause_clicked(bool checked);
+    */
+    void on_cmdFeedHold_clicked(bool checked);
     void on_cmdFileReset_clicked();
+    /*
     void on_actFileNew_triggered();
     void on_cmdClearConsole_clicked();
+    */
     void on_actFileSaveAs_triggered();
     void on_actFileSave_triggered();
+    /*
     void on_actFileSaveTransformedAs_triggered();
+    */
     void on_cmdTop_clicked();
     void on_cmdFront_clicked();
     void on_cmdLeft_clicked();
     void on_cmdIsometric_clicked();
+    /*
     void on_actAbout_triggered();
 // FIXME    void on_grpOverriding_toggled(bool checked);
 // FIXME    void on_grpSpindle_toggled(bool checked);
@@ -171,37 +195,29 @@ private slots:
     void on_cmdFileAbort_clicked();
     void on_cmdSpindle_clicked(bool checked);   
     */
+    void on_cmdStop_clicked();
+    
     void on_cmdYPlus_pressed();
-
     void on_cmdYPlus_released();
-
     void on_cmdYMinus_pressed();
-
     void on_cmdYMinus_released();
-
+    
     void on_cmdXPlus_pressed();
-
     void on_cmdXPlus_released();
-
     void on_cmdXMinus_pressed();
-
     void on_cmdXMinus_released();
 
     void on_cmdZPlus_pressed();
-
     void on_cmdZPlus_released();
-
     void on_cmdZMinus_pressed();
-
     void on_cmdZMinus_released();
 
-    void on_cmdStop_clicked();
-/*
 protected:
     void showEvent(QShowEvent *se);
     void hideEvent(QHideEvent *he);
     void resizeEvent(QResizeEvent *re);
     void timerEvent(QTimerEvent *);
+/*
     void closeEvent(QCloseEvent *ce);
     void dragEnterEvent(QDragEnterEvent *dee);
     void dropEvent(QDropEvent *de);
@@ -226,7 +242,7 @@ private:
 
     SelectionDrawer m_selectionDrawer;
 
-    GCodeTableModel m_programModel;
+    GCodeModel m_programModel;
     GCodeTableModel m_probeModel;
     GCodeTableModel m_programHeightmapModel;
 
@@ -324,17 +340,15 @@ private:
 
     QStringList m_recentFiles;
     QStringList m_recentHeightmaps;
-/*
     void loadFile(QString fileName);
-    void loadFile(QList<QString> data);
-    void clearTable();
-*/
+
     void preloadSettings();
+    void restoreDefaultSettings(QSettings &settings);
     void loadSettings();
 /*
     void saveSettings();
-    bool saveChanges(bool heightMapMode);
 */
+    bool saveChanges(bool heightMapMode);
     void updateControlsState();
     void openPort();
     void sendCommand(QString command, int tableIndex = -1, bool showInConsole = true);
@@ -342,16 +356,14 @@ private:
     int bufferLength();
 
     void sendNextFileCommands();
-// FIXME     void applySettings();
+    void applySettings();
     void updateParser();
     bool dataIsFloating(QString data);
     bool dataIsEnd(QString data);
     bool dataIsReset(QString data);
-/*
     QTime updateProgramEstimatedTime(QList<LineSegment *> lines);
-    bool saveProgramToFile(QString fileName, GCodeTableModel *model);
+    bool saveProgramToFile(QString fileName, GCodeModel *model);
     QString feedOverride(QString command);
-*/
     bool eventFilter(QObject *obj, QEvent *event);
 /*
     bool keyIsMovement(int key);
@@ -370,7 +382,7 @@ private:
     void loadHeightMap(QString fileName);
     bool saveHeightMap(QString fileName);
 */
-    GCodeTableModel *m_currentModel;
+    GCodeModel *m_currentModel;
 /*
     QList<LineSegment *> subdivideSegment(LineSegment *segment);
     void resizeTableHeightMapSections();

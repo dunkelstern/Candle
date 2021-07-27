@@ -18,17 +18,20 @@ add_compile_definitions(APP_VERSION="1.1.9")
 add_compile_definitions(QT_NO_DEBUG)
 
 find_package(Qt5 COMPONENTS Core Widgets OpenGL SerialPort REQUIRED)
+include(cmake/FindQScintilla.cmake)
+
 
 include_directories(${PROJECT_SOURCE_DIR})
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/*.cpp
                     ${PROJECT_SOURCE_DIR}/drawers/*.cpp
                     ${PROJECT_SOURCE_DIR}/parser/*.cpp
+                    ${PROJECT_SOURCE_DIR}/models/*.cpp
                     ${PROJECT_SOURCE_DIR}/widgets/*.cpp
                     ${PROJECT_SOURCE_DIR}/tables/*.cpp
                     )
 
-qt5_add_resources(SHADER_RSC 
+qt5_add_resources(SHADER_RSC
     ${PROJECT_SOURCE_DIR}/shaders.qrc
     ${PROJECT_SOURCE_DIR}/images.qrc
     ${PROJECT_SOURCE_DIR}/fonts.qrc
@@ -47,4 +50,5 @@ target_link_libraries(Candle
     Qt5::OpenGL
     Qt5::Gui
     Qt5::SerialPort
+    ${QSCINTILLA_LIBRARY}
     )
