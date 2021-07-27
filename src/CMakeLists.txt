@@ -3,6 +3,9 @@ project(Candle)
 
 # set(CMAKE_VERBOSE_MAKEFILE ON)
 
+# Create compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # instruct CMake to run moc automatically when needed
 set(CMAKE_AUTOMOC ON)
 
