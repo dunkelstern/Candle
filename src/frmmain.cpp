@@ -462,6 +462,9 @@ void frmMain::loadSettings()
 
     // Update right panel width
     applySettings();
+
+    int width = this->width();
+    ui->splitter->setSizes(QList<int>{width * 0.4, width * 0.6});
     show();
     // FIXME ui->scrollArea->updateMinimumWidth();
 
@@ -1835,13 +1838,11 @@ QTime frmMain::updateProgramEstimatedTime(QList<LineSegment*> lines)
     return t;
 }
 
-/*
-
 void frmMain::on_cmdFit_clicked()
 {
     ui->glwVisualizer->fitDrawable(m_currentDrawer);
 }
-*/
+
 void frmMain::on_cmdCycleStart_clicked()
 {
     if (m_currentModel->lines() == 0) return;

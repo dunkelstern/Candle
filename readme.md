@@ -19,6 +19,16 @@ Build requirements:
 ------------------
 Qt 5.4.2 with MinGW/GCC compiler
 
+On Ubuntu and Linux mint:
+
+    sudo apt install qt5-default cmake libqt5serialport5-dev libqscintilla2-qt5-dev
+    cd src
+    cmake -S . -B build
+    cmake --build build
+    # this should build the executable src/build/Candle
+    
+
+
 Downloads:
 ----------
 Experimental versions:

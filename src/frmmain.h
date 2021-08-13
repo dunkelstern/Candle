@@ -125,9 +125,7 @@ private slots:
     void on_actFileExit_triggered();
     */
     void on_cmdFileOpen_clicked();
-    /*
-    void on_cmdFit_clicked();
-    */
+  
     void on_cmdCycleStart_clicked();
     /*
     void onTableCellChanged(QModelIndex i1, QModelIndex i2);
@@ -163,6 +161,7 @@ private slots:
     void on_cmdFront_clicked();
     void on_cmdLeft_clicked();
     void on_cmdIsometric_clicked();
+    void on_cmdFit_clicked();
     /*
     void on_actAbout_triggered();
 // FIXME    void on_grpOverriding_toggled(bool checked);

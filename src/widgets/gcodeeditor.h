@@ -1,6 +1,8 @@
 #if !defined(GCODEEDITOR_H)
 #define GCODEEDITOR_H
 
+#include <functional>
+
 #include "Qsci/qsciscintilla.h"
 
 class GCodeEditor : public QsciScintilla {

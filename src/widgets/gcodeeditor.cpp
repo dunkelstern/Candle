@@ -7,10 +7,9 @@
 #include <qcolor.h>
 
 
-
 GCodeEditor::GCodeEditor(QWidget *parent) :
     QsciScintilla(parent),
-    currentLineBackgroundColor(QColorConstants::Yellow) {
+    currentLineBackgroundColor(QColor(255, 255, 0)) {
     setReadOnly(true);
 
     indicatorDefine(QsciScintilla::FullBoxIndicator, CURRENT_LINE_INDICATOR);
