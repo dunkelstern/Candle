@@ -2,9 +2,9 @@ name: CMake
 
 on:
   push:
-    branches: [ * ]
+    branches: [ '*' ]
   pull_request:
-    branches: [ * ]
+    branches: [ '*' ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -23,8 +23,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-      sudo apt-get update
-      sudo apt get install qt5-default cmake libqt5serialport5-dev libqscintilla2-qt5-dev
+        sudo apt-get update
+        sudo apt get install qt5-default cmake libqt5serialport5-dev libqscintilla2-qt5-dev
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
