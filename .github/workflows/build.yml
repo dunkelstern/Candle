@@ -2,10 +2,6 @@ name: Build
 
 on: [push, pull_request]
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -25,12 +21,23 @@ jobs:
       with:
         platform: x64
 
-    - name: Install Qt
+    - name: Install Qt (Windows)
       uses: jurplel/install-qt-action@v2
+      if: contains(matrix.os, 'windows')
       with:
         version: '5.9.0'
         target: 'desktop'
         modules: 'qtscript'
+        arch: 'win64_mingw81'
+
+    - name: Install Qt (Linux, MacOS)
+      uses: jurplel/install-qt-action@v2
+      if: "!contains(matrix.os, 'windows')"
+      with:
+        version: '5.9.0'
+        target: 'desktop'
+        modules: 'qtscript'
+
 
     - name: Run qmake
       run: qmake candle.pro
