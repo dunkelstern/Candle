@@ -15,11 +15,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    - name: Setup Python3
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
-        version: '5.4.2'
+        version: '5.9.0'
         target: 'desktop'
         modules: 'qtscript'
 
