@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        qt-version: ['5.10.0', '5.14.2']
+        qt-version: ['5.11.0', '5.14.2']
 
     steps:
     - uses: actions/checkout@v2
