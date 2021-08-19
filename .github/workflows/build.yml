@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        qt-version: ['5.9.0', '5.14.2']
 
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +26,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       if: contains(matrix.os, 'windows')
       with:
-        version: '5.9.0'
+        version: '${{ matrix.qt-version }}'
         target: 'desktop'
         modules: 'qtscript'
         arch: 'win64_mingw81'
@@ -34,13 +35,13 @@ jobs:
       uses: jurplel/install-qt-action@v2
       if: "!contains(matrix.os, 'windows')"
       with:
-        version: '5.9.0'
+        version: '${{ matrix.qt-version }}'
         target: 'desktop'
         modules: 'qtscript'
 
 
     - name: Run qmake
-      run: qmake candle.pro
+      run: qmake -r candle.pro
 
     - name: Build
-      run: make
+      run: make install
