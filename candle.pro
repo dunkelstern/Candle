@@ -9,7 +9,10 @@ SUBDIRS =   src/designerplugins \
 system(qmake src/candleplugins/candleplugins.pro)
 
 install_main.path = bin
-install_main.files += src/candle/release/candle.exe
+install_main.files += src/candle/Candle
+
+install_libs.path = bin/libs
+install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.so
 
 install_plugins.path = bin/plugins
 install_plugins.files = src/candleplugins/camera src/candleplugins/test1 src/candleplugins/usercommands src/candleplugins/coordinatesystem
@@ -23,4 +26,4 @@ install_license.files = LICENSE
 install_scriptbindings.path = bin/script
 install_scriptbindings.files = src/scriptbindings/plugins/script/*.dll
 
-INSTALLS += install_main install_plugins install_translations install_license install_scriptbindings
+INSTALLS += install_main install_libs install_plugins install_translations install_license install_scriptbindings
