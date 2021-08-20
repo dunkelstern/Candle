@@ -8,7 +8,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        qt-version: ['5.11.0', '5.14.2']
+        versions:
+          - qt: '5.12.9'
+            windows-arch: 'win64_mingw73'
+          - qt: '5.15.2'
+            windows-arch: 'win64_mingw81'
 
     steps:
     - uses: actions/checkout@v2
@@ -26,16 +30,16 @@ jobs:
       uses: jurplel/install-qt-action@v2
       if: contains(matrix.os, 'windows')
       with:
-        version: '${{ matrix.qt-version }}'
+        version: '${{ matrix.versions.qt }}'
         target: 'desktop'
         modules: 'qtscript'
-        arch: 'win64_mingw81'
+        arch: '${{ matrix.versions.windows-arch }}'
 
     - name: Install Qt (Linux, MacOS)
       uses: jurplel/install-qt-action@v2
       if: "!contains(matrix.os, 'windows')"
       with:
-        version: '${{ matrix.qt-version }}'
+        version: '${{ matrix.versions.qt }}'
         target: 'desktop'
         modules: 'qtscript'
 

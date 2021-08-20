@@ -11,3 +11,5 @@ SUBDIRS = qtscript_core \
           qtscript_uitools \
           qtscript_custom
 
+# there are thousands of deprecation warnings in the generated code, disable them
+QMAKE_CXXFLAGS_RELEASE=-Wno-deprecated-declarations
