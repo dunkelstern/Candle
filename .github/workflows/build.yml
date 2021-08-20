@@ -20,11 +20,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-    - name: Set up MinGW
-      uses: egor-tensin/setup-mingw@v2
-      if: contains(matrix.os, 'windows')
-      with:
-        platform: x64
 
     - name: Install Qt (Windows)
       uses: jurplel/install-qt-action@v2
@@ -42,6 +37,7 @@ jobs:
         version: '${{ matrix.qt-version }}'
         target: 'desktop'
         modules: 'qtscript'
+        tools: 'tools_mingw,8.1.0,qt.tools.win64_mingw810'
 
 
     - name: Run qmake
