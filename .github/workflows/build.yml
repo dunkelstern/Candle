@@ -12,7 +12,7 @@ jobs:
         exclude:
           # The MingW installer below only supports MingW 8.1, 5.15.0 and up are the only Qt versions that support MingW 8.1
           - os: windows-latest
-            qt: '5.12.9'
+            qt-version: '5.12.9'
 
     steps:
     - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       if: contains(matrix.os, 'windows')
       with:
-        version: '${{ matrix.qt }}'
+        version: '${{ matrix.qt-version }}'
         target: 'desktop'
         modules: 'qtscript'
         arch: 'win64_mingw81'
@@ -39,7 +39,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       if: "!contains(matrix.os, 'windows')"
       with:
-        version: '${{ matrix.qt }}'
+        version: '${{ matrix.qt-version }}'
         target: 'desktop'
         modules: 'qtscript'
 
