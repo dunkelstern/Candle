@@ -8,11 +8,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        versions:
-          - qt: '5.12.9'
-            windows-arch: 'win64_mingw73'
-          - qt: '5.15.2'
-            windows-arch: 'win64_mingw81'
+        qt-version: ['5.12.9', '5.15.2']
+        exclude:
+          # The MingW installer below only supports MingW 8.1, 5.15.0 and up are the only Qt versions that support MingW 8.1
+          - os: windows-latest
+            qt: '5.12.9'
 
     steps:
     - uses: actions/checkout@v2
@@ -30,16 +30,16 @@ jobs:
       uses: jurplel/install-qt-action@v2
       if: contains(matrix.os, 'windows')
       with:
-        version: '${{ matrix.versions.qt }}'
+        version: '${{ matrix.qt }}'
         target: 'desktop'
         modules: 'qtscript'
-        arch: '${{ matrix.versions.windows-arch }}'
+        arch: 'win64_mingw81'
 
     - name: Install Qt (Linux, MacOS)
       uses: jurplel/install-qt-action@v2
       if: "!contains(matrix.os, 'windows')"
       with:
-        version: '${{ matrix.versions.qt }}'
+        version: '${{ matrix.qt }}'
         target: 'desktop'
         modules: 'qtscript'
 
