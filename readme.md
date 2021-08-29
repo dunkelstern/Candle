@@ -17,7 +17,34 @@ System requirements for running "Candle":
 
 Build requirements:
 ------------------
-Qt 5.4.2 with MinGW/GCC compiler
+Qt 5.12.9 or newer version of Qt 5 with MinGW/GCC compiler.
+
+Ubuntu:
+======
+In the directory where you have cloned this project run:
+
+```
+sudo apt install qt5-default libqt5serialport5-dev qttools5-dev-tools qtmultimedia5-dev qttools5-dev qtscript5-dev
+qmake -r candle.pro
+make all install -j $(nproc)
+```
+
+Windows:
+=======
+
+Install a version of Qt and MingW. An easy way to do this is to install Python, then do the following in the directory where you have cloned this project:
+
+```
+python -m pip install aqtinstall
+python -m aqt install 5.15.2 windows desktop win64_mingw81 -m qtscript -O qt
+```
+
+This installs qt in a subdirectory called qt. The compile as follows:
+
+```
+qt\mingw64_81\bin\qmake -r candle.pro
+make all install
+```
 
 Downloads:
 ----------
