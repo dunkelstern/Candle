@@ -12,6 +12,6 @@ for(tsfile, TRANSLATIONS) {
     !exists($$qmdir) {
         mkpath($$qmdir)|error("Aborting.")
     }
-    command = $$LRELEASE -removeidentical $$tsfile -qm $$qmfile
+    command = $$system_quote($$LRELEASE_EXE) -removeidentical $$tsfile -qm $$qmfile
     system($$command)|error("Failed to run: $$command")
 }

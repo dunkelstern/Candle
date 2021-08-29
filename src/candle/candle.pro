@@ -114,11 +114,6 @@ for(tsfile, TRANSLATIONS) {
     !exists($$qmdir) {
         mkpath($$qmdir)|error("Aborting.")
     }
-    message("LRELEASE=$$LRELEASE")
-    message("LRELEASE_EXE=$$LRELEASE_EXE")
-    message("system_quote(LRELEASE)=$$system_quote($$LRELEASE)")
-    message("system_quote(LRELEASE_EXE)=$$system_quote($$LRELEASE_EXE)")
     command = $$system_quote($$LRELEASE_EXE) -removeidentical $$tsfile -qm $$qmfile
-    message("command=$$command")
     system($$command)|error("Failed to run: $$command")
 }
