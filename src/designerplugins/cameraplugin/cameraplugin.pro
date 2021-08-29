@@ -1,4 +1,4 @@
-CONFIG += plugin
+CONFIG += plugin designer
 TEMPLATE = lib
 QT += widgets multimedia multimediawidgets
 
