@@ -44,4 +44,4 @@ jobs:
       run: qmake -r candle.pro
 
     - name: Build
-      run: make install
+      run: make all install
