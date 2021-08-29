@@ -1,6 +1,6 @@
-CONFIG += plugin designer
+CONFIG += plugin 
 TEMPLATE = lib
-QT += widgets multimedia multimediawidgets
+QT += widgets multimedia multimediawidgets designer
 
 TARGET = cameraplugin
 
