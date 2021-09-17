@@ -13,27 +13,28 @@ class ScriptFunctions: public QObject
     Q_OBJECT
 public:
     ScriptFunctions(QObject *parent = 0);
-    
+
     void setFrmMain(frmMain *f);
     frmMain *getFrmMain();
 
 public slots:
     void sendCommands(QString commands, int index = -100);
     void sendCommand(QString command, int index = -100);
-    
+
     void newFile();
     void loadFile(QString fileName);
     void loadFile(QVariantList data);
     bool saveFile();
     void saveFile(QString fileName);
-    
+    void setSenderState(int state);
+
     int bufferLength();
     int commandsLength();
     int queueLength();
 
     int buttonSize();
     void addAction(QAction *action);
-    void removeAction(QAction *action);    
+    void removeAction(QAction *action);
     int displayMessageBox(int icon, QString title, QString text, int buttons);
 
 signals:

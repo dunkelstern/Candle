@@ -93,3 +93,7 @@ void ScriptFunctions::removeAction(QAction *action)
 {
     m_frmMain->removeAction(action);
 }
+
+void ScriptFunctions::setSenderState(int state) {
+    m_frmMain->setSenderState((frmMain::SenderState)state);
+}
