@@ -1,0 +1,65 @@
+# Maintainer: Johannes Schriewer <hallo@dunkelstern.de>
+pkgname=candle-experimental
+pkgver=v1.3
+pkgrel=1
+pkgdesc="GRBL controller application with G-Code visualizer written in Qt - development version"
+arch=(x86_64 aarch64)
+url="https://github.com/dunkelstern/Candle"
+license=('GPL3')
+groups=()
+depends=('qt5-serialport' 'qt5-base' 'hicolor-icon-theme')
+makedepends=('git')
+provides=("${pkgname%-experimental}")
+conflicts=("${pkgname%-experimental}" "${pkgname%-experimental}-bin" "candle-git" "candle-git-bin")
+replaces=()
+backup=()
+options=()
+install=
+source=(
+    "${pkgname%-experimental}"::'git+https://github.com/dunkelstern/Candle.git#branch=toolchange-and-probing'
+    "${pkgname%-experimental}.desktop"
+    "candle.sh"
+)
+noextract=()
+md5sums=('SKIP'
+         'bc2f8d4cf66efad13ac250d54f487ba1'
+         'e5e99562952cd4e8042dfc500bb3dbb1')
+
+pkgver() {
+        cd "$srcdir/${pkgname%-experimental}"
+        printf "%s" "$(git describe --tags --match 'v*' | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
+}
+
+build() {
+        cd "$srcdir/${pkgname%-experimental}"
+        qmake -r candle.pro
+        make
+}
+
+package() {
+    install -m644 ../"${pkgname%-experimental}.desktop" -Dt "$pkgdir"/usr/share/applications
+    install -m755 ../candle.sh -Dt "$pkgdir"/opt/Candle
+    cd "$srcdir/${pkgname%-experimental}"
+    install -m644 src/candle/images/icon.svg -D "$pkgdir"/usr/share/icons/hicolor/scalable/apps/candle.svg
+    install -m755 src/candle/Candle -Dt "$pkgdir"/opt/Candle
+    install -m755 src/designerplugins/customwidgetsplugin/libcustomwidgets.so -Dt "$pkgdir/opt/Candle"
+
+    mkdir -p "$pkgdir/opt/Candle/script"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_uitools.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_multimedia.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_sql.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_opengl.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_printsupport.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_network.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_xml.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_core.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_gui.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_widgets.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 src/scriptbindings/plugins/script/libqtscript_custom.so -Dt "$pkgdir/opt/Candle/script/"
+
+    mkdir -p "$pkgdir/opt/Candle/plugins"
+    cp -r src/candleplugins/coordinatesystem "$pkgdir/opt/Candle/plugins/"
+    cp -r src/candleplugins/usercommands "$pkgdir/opt/Candle/plugins/"
+    cp -r src/candleplugins/probing "$pkgdir/opt/Candle/plugins/"
+    cp -r src/candleplugins/manual_toolchange "$pkgdir/opt/Candle/plugins/"
+}
