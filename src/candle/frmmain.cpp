@@ -3169,6 +3169,7 @@ void frmMain::loadPlugins()
                 }
             }
 
+            m_plugins.append(se);
             f.close();
         }
     }

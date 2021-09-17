@@ -229,7 +229,7 @@ protected:
 private:
     static const int BUFFERLENGTH = 127;
     static const int PROGRESSMINLINES = 10000;
-    static const int PROGRESSSTEP = 1000;    
+    static const int PROGRESSSTEP = 1000;
 
     enum SenderState {
         SenderUnknown = -1,
@@ -285,7 +285,7 @@ private:
     // Visualizer drawers
     // TODO: Add machine table visualizer
     OriginDrawer *m_originDrawer;
-    GcodeDrawer *m_codeDrawer;    
+    GcodeDrawer *m_codeDrawer;
     GcodeDrawer *m_probeDrawer;
     GcodeDrawer *m_currentDrawer;
     ToolDrawer m_toolDrawer;
@@ -307,7 +307,7 @@ private:
 
     // Queues
     QList<CommandAttributes> m_commands;
-    QList<CommandQueue> m_queue;    
+    QList<CommandQueue> m_queue;
 
     // Forms
     frmSettings *m_settings;
@@ -369,10 +369,11 @@ private:
     QScriptEngine m_scriptEngine;
     ScriptVars m_storedVars;
     ScriptFunctions m_scriptFunctions;
+    QList<QScriptEngine *> m_plugins;
 
     // Drag & drop
     QPoint m_mousePressPos;
-    
+
     // Settings
     void preloadSettings();
     void loadSettings();
