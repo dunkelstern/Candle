@@ -30,9 +30,11 @@ In the directory where you have cloned this project run:
 
 ```bash
 sudo apt install qt5-default libqt5serialport5-dev qttools5-dev-tools qtmultimedia5-dev qttools5-dev qtscript5-dev
-qmake -r candle.pro
-make all install -j $(nproc)
+cd build_scripts/linux-dynamic
+bash build.sh
 ```
+
+Now you can grab `bin` and run the `Candle` binary from there
 
 ## Archlinux
 

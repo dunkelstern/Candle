@@ -12,7 +12,8 @@ install_main.path = bin
 install_main.files += src/candle/Candle
 
 install_libs.path = bin/libs
-install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.so
+win32: install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.dll
+unix: install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.so
 
 install_plugins.path = bin/plugins
 install_plugins.files = src/candleplugins/camera src/candleplugins/test1 src/candleplugins/usercommands src/candleplugins/coordinatesystem src/candleplugins/probing src/candleplugins/manual_toolchange
@@ -24,6 +25,7 @@ install_license.path = bin
 install_license.files = LICENSE
 
 install_scriptbindings.path = bin/script
-install_scriptbindings.files = src/scriptbindings/plugins/script/*.dll
+win32: install_scriptbindings.files = src/scriptbindings/plugins/script/*.dll
+unix: install_scriptbindings.files = src/scriptbindings/plugins/script/*.so
 
 INSTALLS += install_main install_libs install_plugins install_translations install_license install_scriptbindings

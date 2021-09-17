@@ -3,9 +3,9 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 CONFIG(debug, debug|release) {
-    DESTDIR = $$PWD/../plugins/script_debug
+    DESTDIR = $$OUT_PWD/../plugins/script_debug
 } else {
-    DESTDIR = $$PWD/../plugins/script
+    DESTDIR = $$OUT_PWD/../plugins/script
 }
 
 win32:{
