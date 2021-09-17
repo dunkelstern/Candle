@@ -272,7 +272,6 @@ frmMain::frmMain(QWidget *parent) :
     ui->tblProgram->hideColumn(5);
 
     setSenderState(SenderStopped);
-    updateControlsState();
 
     // Prepare jog buttons
     foreach (StyledToolButton* button, ui->grpJog->findChildren<StyledToolButton*>(QRegExp("cmdJogFeed\\d")))
@@ -773,7 +772,6 @@ void frmMain::on_cmdFilePause_clicked(bool checked)
         } else {
             setSenderState(s);
         }
-        updateControlsState();
     }
 }
 
@@ -2071,7 +2069,6 @@ void frmMain::onSerialPortReadyRead()
 
                         response.clear();
                         setSenderState(SenderChangingTool);
-                        updateControlsState();
 
                         if (m_settings->pauseToolChange()) {                        
                             QMessageBox::information(this, qApp->applicationDisplayName(), 
@@ -2089,7 +2086,6 @@ void frmMain::onSerialPortReadyRead()
                     // Switch to pause mode
                     if ((m_senderState == SenderPausing) && m_commands.isEmpty()) {
                         setSenderState(SenderPaused);
-                        updateControlsState();
                     }
 
                     // Scroll to first line on "M30" command
@@ -2155,8 +2151,6 @@ void frmMain::onSerialPortReadyRead()
 
                     m_commands.clear();
                     m_queue.clear();
-
-                    updateControlsState();
                 }
                 ui->txtConsole->appendPlainText(data);
             }
@@ -4410,6 +4404,7 @@ void frmMain::setSenderState(SenderState state)
     if (m_senderState != state) {
         m_senderState = state;
         emit senderStateChanged(state);
+        updateControlsState();
     }
 }
 
@@ -4436,8 +4431,6 @@ void frmMain::completeTransfer()
     m_fileProcessedCommandIndex = 0;
     m_lastDrawnLineIndex = 0;
     m_storedParserStatus.clear();
-
-    updateControlsState();
 
     // Send end commands
     sendCommands(m_settings->endCommands());
