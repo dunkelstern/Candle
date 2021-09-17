@@ -34,6 +34,7 @@ public slots:
     int buttonSize();
     void addAction(QAction *action);
     void removeAction(QAction *action);    
+    int displayMessageBox(int icon, QString title, QString text, int buttons);
 
 signals:
     void responseReceived(QString command, int tableIndex, QString response);

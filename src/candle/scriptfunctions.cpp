@@ -60,6 +60,10 @@ void ScriptFunctions::saveFile(QString fileName)
     }
 }
 
+int ScriptFunctions::displayMessageBox(int icon, QString title, QString text, int buttons) {
+    return m_frmMain->displayMessageBox((QMessageBox::Icon)icon, title, text, (QMessageBox::StandardButtons)buttons);
+}
+
 int ScriptFunctions::bufferLength()
 {
     return m_frmMain->bufferLength();

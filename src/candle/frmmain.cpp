@@ -2988,6 +2988,15 @@ void frmMain::applySettings() {
     ui->cmdCommandSend->setFixedSize(s);
 }
 
+int frmMain::displayMessageBox(QMessageBox::Icon icon, QString title, QString text, QMessageBox::StandardButtons buttons) {
+    QMessageBox box(this);
+    box.setIcon(icon);
+    box.setText(text);
+    box.setWindowTitle(QString("Candle Plugin: %1").arg(title));
+    box.setStandardButtons(buttons);
+    return box.exec();
+}
+
 void frmMain::loadPlugins()
 {
     QString pluginsDir = qApp->applicationDirPath() + "/plugins/";

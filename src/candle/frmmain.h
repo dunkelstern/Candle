@@ -381,6 +381,7 @@ private:
 
     // Plugins
     void loadPlugins();
+    int displayMessageBox(QMessageBox::Icon icon, QString title, QString text, QMessageBox::StandardButtons buttons);
 
     // Communication
     void openPort();
