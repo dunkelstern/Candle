@@ -15,6 +15,7 @@
 #include <QLayout>
 #include <QDrag>
 #include <QMimeData>
+#include <QStandardPaths>
 #include <QTranslator>
 #include <QScriptValueIterator>
 #include "frmmain.h"
@@ -109,7 +110,7 @@ frmMain::frmMain(QWidget *parent) :
     m_spindleCW = true;
 
     // Loading settings
-    m_settingsFileName = qApp->applicationDirPath() + "/settings.ini";
+    m_settingsFileName = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/settings.ini";
     preloadSettings();
 
     m_settings = new frmSettings(this);
