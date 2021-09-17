@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
- 
+
 SUBDIRS =   src/designerplugins \
             src/candle \
             src/candleplugins \
             src/scriptbindings
-            
+
 # Make plugins translations
 system(qmake src/candleplugins/candleplugins.pro)
 
@@ -15,7 +15,7 @@ install_libs.path = bin/libs
 install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.so
 
 install_plugins.path = bin/plugins
-install_plugins.files = src/candleplugins/camera src/candleplugins/test1 src/candleplugins/usercommands src/candleplugins/coordinatesystem
+install_plugins.files = src/candleplugins/camera src/candleplugins/test1 src/candleplugins/usercommands src/candleplugins/coordinatesystem src/candleplugins/probing
 
 install_translations.path = bin/translations
 install_translations.files = src/candle/translations/*
