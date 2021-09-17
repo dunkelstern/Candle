@@ -1980,12 +1980,31 @@ void frmMain::onSerialPortReadyRead()
                     if (m_queue.length() > 0) {
                         CommandQueue cq = m_queue.takeFirst();
                         while (true) {
+
+                            // Fill up the buffer
                             if ((bufferLength() + cq.command.length() + 1) <= BUFFERLENGTH) {
                                 int r = 0;
-                                if (!cq.command.isEmpty()) r = sendCommand(cq.command, cq.tableIndex, cq.showInConsole);
-                                if ((!r && !cq.command.isEmpty() && (m_queue.isEmpty() || cq.wait)) || m_queue.isEmpty()) break; 
-                                    else cq = m_queue.takeFirst();
+
+                                if (!cq.command.isEmpty()) {
+                                    // If command is not empty run the command
+                                    r = sendCommand(cq.command, cq.tableIndex, cq.showInConsole);
+                                }
+                                break;
+
+                                // if ((!r && !cq.command.isEmpty() && (m_queue.isEmpty() || cq.wait))) {
+                                //     // if either we got an error or the queue is finally empty or we want to wait for
+                                //     // this command to execute we break the buffer fill
+                                //     break;
+                                // }
+                                // if (m_queue.isEmpty()) {
+                                //     // if the queue is empty we can not fill the buffer anymore
+                                //     break;
+                                // }
+
+                                // // take the next item
+                                // cq = m_queue.takeFirst();
                             } else {
+                                // We are over the buffer length, add the item back to the queue
                                 m_queue.insert(0, cq);
                                 break;
                             }
@@ -3289,6 +3308,9 @@ void frmMain::sendNextFileCommands() {
         sendCommand(command, m_fileCommandIndex, m_settings->showProgramCommands());
         m_fileCommandIndex++;
         command = m_currentModel->data(m_currentModel->index(m_fileCommandIndex, 1)).toString();
+        if (m_senderState == SenderPaused) {
+            return;
+        }
     }
 }
 
