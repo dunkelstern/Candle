@@ -12,7 +12,7 @@ install_main.path = bin
 install_main.files += src/candle/Candle
 
 install_libs.path = bin/libs
-win32: install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.dll
+win32: install_libs.files = src/designerplugins/customwidgetsplugin/customwidgets.dll
 unix: install_libs.files = src/designerplugins/customwidgetsplugin/libcustomwidgets.so
 
 install_plugins.path = bin/plugins
@@ -27,5 +27,9 @@ install_license.files = LICENSE
 install_scriptbindings.path = bin/script
 win32: install_scriptbindings.files = src/scriptbindings/plugins/script/*.dll
 unix: install_scriptbindings.files = src/scriptbindings/plugins/script/*.so
+
+win32:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/src/designerplugins/customwidgetsplugin/release/customwidgets.lib
+else:win32:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/src/designerplugins/customwidgetsplugin/debug/customwidgets.lib
+
 
 INSTALLS += install_main install_libs install_plugins install_translations install_license install_scriptbindings

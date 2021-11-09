@@ -104,7 +104,9 @@ RESOURCES += \
 
 INCLUDEPATH += ../designerplugins/customwidgetsplugin
 
-LIBS += -L$$OUT_PWD/../designerplugins/customwidgetsplugin -lcustomwidgets
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../designerplugins/customwidgetsplugin/release/ -lcustomwidgets
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../designerplugins/customwidgetsplugin/debug/ -lcustomwidgets
+else:unix: LIBS += -L$$OUT_PWD/../designerplugins/customwidgetsplugin -lcustomwidgets
 
 qtPrepareTool(LRELEASE, lrelease)
 for(tsfile, TRANSLATIONS) {
