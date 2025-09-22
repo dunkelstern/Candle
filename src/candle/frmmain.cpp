@@ -1173,7 +1173,7 @@ void frmMain::on_chkHeightMapUse_clicked(bool checked)
                                     if (!list->at(j)->isAbsolute()) point -= list->at(j)->getStart();
                                     if (!list->at(j)->isMetric()) point /= 25.4f;
 
-                                    item.command = newCommand + QString("X%1Y%2Z%3")
+                                    item.command = newCommand + QString("X%1 Y%2 Z%3")
                                             .arg(point.x(), 0, 'f', 3).arg(point.y(), 0, 'f', 3).arg(point.z(), 0, 'f', 3);
                                     m_programHeightmapModel.data().append(item);
 
@@ -3413,13 +3413,13 @@ void frmMain::restoreParserState()
 void frmMain::restoreOffsets()
 {
     // Still have pre-reset working position
-    sendCommand(QString("%4G53G90X%1Y%2Z%3").arg(ui->txtMPosX->value())
+    sendCommand(QString("%4 G53 G90 X%1 Y%2 Z%3").arg(ui->txtMPosX->value())
                                        .arg(ui->txtMPosY->value())
                                        .arg(ui->txtMPosZ->value())
                                        .arg(m_settings->units() ? "G20" : "G21"),
                                        -2, m_settings->showUICommands());
 
-    sendCommand(QString("%4G92X%1Y%2Z%3").arg(ui->txtWPosX->value())
+    sendCommand(QString("%4 G92 X%1 Y%2 Z%3").arg(ui->txtWPosX->value())
                                        .arg(ui->txtWPosY->value())
                                        .arg(ui->txtWPosZ->value())
                                        .arg(m_settings->units() ? "G20" : "G21"),
@@ -4069,12 +4069,12 @@ bool frmMain::updateHeightMapGrid()
     m_probeModel.clear();
     m_probeModel.insertRow(0);
 
-    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G21G90F%1G0Z%2").
+    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G21 G90 F%1 G0 Z%2").
                          arg(ui->txtHeightMapProbeFeed->value()).arg(ui->txtHeightMapGridZTop->value()));
-    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0X0Y0"));
-    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G38.2Z%1")
+    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0 X0 Y0"));
+    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G38.2 Z%1")
                          .arg(ui->txtHeightMapGridZBottom->value()));
-    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0Z%1")
+    m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0 Z%1")
                          .arg(ui->txtHeightMapGridZTop->value()));
 
     double x, y;
@@ -4083,11 +4083,11 @@ bool frmMain::updateHeightMapGrid()
         y = borderRect.top() + gridStepY * i;
         for (int j = 0; j < gridPointsX; j++) {
             x = borderRect.left() + gridStepX * (i % 2 ? gridPointsX - 1 - j : j);
-            m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0X%1Y%2")
+            m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0 X%1 Y%2")
                                  .arg(x, 0, 'f', 3).arg(y, 0, 'f', 3));
-            m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G38.2Z%1")
+            m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G38.2 Z%1")
                                  .arg(ui->txtHeightMapGridZBottom->value()));
-            m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0Z%1")
+            m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0 Z%1")
                                  .arg(ui->txtHeightMapGridZTop->value()));
         }
     }
@@ -4341,7 +4341,7 @@ void frmMain::jogStep()
         QVector3D vec = m_jogVector * ui->cboJogStep->currentText().toDouble();
 
         if (vec.length()) {
-            sendCommand(QString("$J=%5G91X%1Y%2Z%3F%4")
+            sendCommand(QString("$J=%5 G91 X%1 Y%2 Z%3 F%4")
                         .arg(vec.x(), 0, 'f', m_settings->units() ? 4 : 3)
                         .arg(vec.y(), 0, 'f', m_settings->units() ? 4 : 3)
                         .arg(vec.z(), 0, 'f', m_settings->units() ? 4 : 3)
@@ -4393,7 +4393,7 @@ void frmMain::jogContinuous()
             QVector3D vec = j * toInches(d);
 
             if (vec.length()) {
-                sendCommand(QString("$J=%5G91X%1Y%2Z%3F%4")
+                sendCommand(QString("$J=%5 G91 X%1 Y%2 Z%3 F%4")
                             .arg(vec.x(), 0, 'f', m_settings->units() ? 4 : 3)
                             .arg(vec.y(), 0, 'f', m_settings->units() ? 4 : 3)
                             .arg(vec.z(), 0, 'f', m_settings->units() ? 4 : 3)
