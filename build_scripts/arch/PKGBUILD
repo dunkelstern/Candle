@@ -23,7 +23,7 @@ source=(
 noextract=()
 md5sums=('SKIP'
          'bc2f8d4cf66efad13ac250d54f487ba1'
-         'e5e99562952cd4e8042dfc500bb3dbb1')
+         '790affa1565599d84e4a8748c0d78394')
 
 pkgver() {
         cd "$srcdir/${pkgname%-experimental}"
@@ -32,30 +32,33 @@ pkgver() {
 
 build() {
         cd "$srcdir/${pkgname%-experimental}"
-        qmake -r candle.pro
-        make
+        mkdir -p build
+        cd build
+        qmake -r ../candle.pro
+        make -j12
 }
 
 package() {
+    build_dir=build/src
     install -m644 ../"${pkgname%-experimental}.desktop" -Dt "$pkgdir"/usr/share/applications
     install -m755 ../candle.sh -Dt "$pkgdir"/opt/Candle
     cd "$srcdir/${pkgname%-experimental}"
     install -m644 src/candle/images/icon.svg -D "$pkgdir"/usr/share/icons/hicolor/scalable/apps/candle.svg
-    install -m755 src/candle/Candle -Dt "$pkgdir"/opt/Candle
-    install -m755 src/designerplugins/customwidgetsplugin/libcustomwidgets.so -Dt "$pkgdir/opt/Candle"
+    install -m755 $build_dir/candle/Candle -Dt "$pkgdir"/opt/Candle
+    install -m755 $build_dir/designerplugins/customwidgetsplugin/libcustomwidgets.so -Dt "$pkgdir/opt/Candle"
 
     mkdir -p "$pkgdir/opt/Candle/script"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_uitools.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_multimedia.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_sql.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_opengl.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_printsupport.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_network.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_xml.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_core.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_gui.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_widgets.so -Dt "$pkgdir/opt/Candle/script/"
-    install -m755 src/scriptbindings/plugins/script/libqtscript_custom.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_uitools.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_multimedia.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_sql.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_opengl.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_printsupport.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_network.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_xml.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_core.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_gui.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_widgets.so -Dt "$pkgdir/opt/Candle/script/"
+    install -m755 $build_dir/scriptbindings/qtbindings/plugins/script/libqtscript_custom.so -Dt "$pkgdir/opt/Candle/script/"
 
     mkdir -p "$pkgdir/opt/Candle/plugins"
     cp -r src/candleplugins/coordinatesystem "$pkgdir/opt/Candle/plugins/"
